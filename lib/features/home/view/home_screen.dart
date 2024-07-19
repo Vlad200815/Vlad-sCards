@@ -1,67 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
+
+import '../../settings/view/view.dart';
 import '../home.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
   });
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int bottomBarIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: theme.colorScheme.onPrimary,
-            centerTitle: true,
-            title: Text(
-              "Vlad'sCards",
-              style: theme.textTheme.titleLarge,
+      body: bottomBarIndex == 0
+          ? const BaseScreen()
+          : bottomBarIndex == 1
+              ? const WordsPackesScreen()
+              : const SettingsScreen(),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(30),
+        ),
+        child: BottomNavigationBar(
+          onTap: (value) {
+            setState(() {
+              bottomBarIndex = value;
+              debugPrint(bottomBarIndex.toString());
+            });
+          },
+          elevation: 3,
+          // fixedColor: theme.colorScheme.onPrimary,
+          showUnselectedLabels: false,
+          showSelectedLabels: false,
+          backgroundColor: Colors.white,
+          items: [
+            BottomNavigationBarItem(
+              icon: bottomBarIndex == 0
+                  ? Icon(
+                      Icons.view_carousel_rounded,
+                      color: theme.colorScheme.onPrimary,
+                    )
+                  : Icon(
+                      Icons.view_carousel_rounded,
+                      color: theme.colorScheme.outline,
+                    ),
+              label: "Cards",
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Box(
-                        text: "383",
-                        hint: "Вчити",
-                        textColor: theme.colorScheme.onPrimary,
-                      ),
-                      Box(
-                        text: "111",
-                        hint: "Знаю",
-                        textColor: theme.colorScheme.inversePrimary,
-                      ),
-                      Box(
-                        text: "237",
-                        hint: "Навчився",
-                        textColor: theme.colorScheme.onSecondary,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            BottomNavigationBarItem(
+              icon: bottomBarIndex == 1
+                  ? Icon(Icons.menu_book_rounded,
+                      color: theme.colorScheme.onPrimary)
+                  : Icon(Icons.menu_book_rounded,
+                      color: theme.colorScheme.outline),
+              label: "New Words",
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedLabelStyle: TextStyle(),
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.view_carousel_rounded), label: "Cards"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_rounded), label: "New words"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "settinsg")
-        ],
+            BottomNavigationBarItem(
+              icon: bottomBarIndex == 2
+                  ? Icon(Icons.settings, color: theme.colorScheme.onPrimary)
+                  : Icon(Icons.settings, color: theme.colorScheme.outline),
+              label: "Settinsg",
+            ),
+          ],
+        ),
       ),
     );
   }

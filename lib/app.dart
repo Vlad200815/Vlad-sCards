@@ -7,18 +7,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueAccent,
+          seedColor: const Color.fromARGB(255, 0, 94, 255),
           brightness: Brightness.light,
-          surface: Colors.grey[50],
-          onPrimary: Colors.green,
+          surface: const Color.fromARGB(255, 244, 250, 253),
+          onPrimary: Colors.blue,
           onSecondary: Colors.yellow[700],
           error: Colors.red,
-          inverseSurface: Colors.black,
-          inversePrimary: Colors.blue,
+          inversePrimary: Colors.green,
+          outline: Colors.grey[400],
         ),
         textTheme: TextTheme(
           displayLarge: const TextStyle(
