@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class Box extends StatelessWidget {
-  final String text;
-  final String hint;
+  String text;
+  String hint;
   Color? textColor;
 
   Box({

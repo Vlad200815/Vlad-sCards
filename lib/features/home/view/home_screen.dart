@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
-
 import '../../settings/view/view.dart';
 import '../home.dart';
 
@@ -22,6 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        shape: const CircleBorder(),
+        backgroundColor: theme.colorScheme.onPrimary,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       body: bottomBarIndex == 0
           ? const BaseScreen()
           : bottomBarIndex == 1

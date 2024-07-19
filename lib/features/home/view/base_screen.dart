@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:vlads_cards/features/home/widgets/cards_box.dart';
 import '../widgets/widgets.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -47,6 +48,22 @@ class BaseScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 80),
+              MyBotton(
+                onPressed: () {},
+                text: "ПОЧАТИ",
+              ),
+              const SizedBox(height: 40),
+              CardsBox()
             ],
           ),
         ),

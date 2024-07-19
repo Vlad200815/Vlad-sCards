@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'features/home/view/view.dart';
+import 'features/login/view/view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,8 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/': (context) => const SignInScreen(),
+        '/home': (context) => const HomeScreen(),
+      },
+      initialRoute: '/home',
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -27,8 +32,13 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
           bodySmall: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyLarge: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
           ),
           titleLarge: TextStyle(
             fontSize: 35,
