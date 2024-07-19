@@ -1,4 +1,4 @@
-# expence_tracker_sqllite
+# Vlad'sCards
 
 A new Flutter project.
 
