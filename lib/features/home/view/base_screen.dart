@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vlads_cards/features/home/widgets/cards_box.dart';
+import 'package:vlads_cards/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class BaseScreen extends StatelessWidget {

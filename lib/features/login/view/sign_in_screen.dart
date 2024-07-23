@@ -1,13 +1,160 @@
 import 'package:flutter/material.dart';
+import 'package:vlads_cards/widgets/my_button.dart';
+import '../widgets/widgets.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
   @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  bool isHidden = false;
+
+  @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final GlobalKey<FormState> signInKey = GlobalKey();
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sing in Screen"),
+      backgroundColor: theme.colorScheme.scrim,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              SpetialButton(
+                text: "Login with Google",
+                widget: Image.asset("assets/google_logo.png"),
+              ),
+              SpetialButton(
+                text: "Login with Apple",
+                widget: Image.asset("assets/apple_logo.png"),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey[300],
+                      thickness: 1.3,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Text(
+                      "or continue with email",
+                      style: theme.textTheme.bodySmall!.copyWith(
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey[300],
+                      thickness: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Form(
+                key: signInKey,
+                child: Column(
+                  children: [
+                    const LoginInput(
+                      hintText: "Email Address",
+                      obscureText: false,
+                      prefixIcon: Icon(Icons.email_outlined),
+                    ),
+                    const SizedBox(height: 15),
+                    LoginInput(
+                      hintText: "Password",
+                      obscureText: isHidden,
+                      prefixIcon: const Icon(Icons.lock_open),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isHidden == false
+                              ? Icons.remove_red_eye_rounded
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isHidden = !isHidden;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/forgot_pswd'),
+                  child: Text(
+                    "Forgot password?",
+                    style: theme.textTheme.bodySmall!
+                        .copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              MyBotton(
+                text: "Login",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                "By siging in with an accout, you agree to Vlad'sCards'",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
+              ),
+              RichText(
+                text: const TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Terms of Service",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.black,
+                        decorationThickness: 1.9,
+                      ),
+                    ),
+                    TextSpan(
+                      text: " and ",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "Privacy Policy.",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.black,
+                        decorationThickness: 1.9,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -9,41 +9,46 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => const SignInScreen(),
+        '/': (context) => const WelcomeScreen(),
+        '/forgot_pswd': (context) => const ForgotPswdScreen(),
         '/home': (context) => const HomeScreen(),
       },
-      initialRoute: '/home',
+      initialRoute: '/',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 0, 94, 255),
-          brightness: Brightness.light,
-          surface: const Color.fromARGB(255, 244, 250, 253),
-          onPrimary: Colors.blue,
-          onSecondary: Colors.yellow[700],
-          error: Colors.red,
-          inversePrimary: Colors.green,
-          outline: Colors.grey[400],
-        ),
-        textTheme: TextTheme(
-          displayLarge: const TextStyle(
+            seedColor: const Color.fromARGB(255, 0, 94, 255),
+            brightness: Brightness.light,
+            surface: const Color.fromARGB(255, 244, 250, 253),
+            onPrimary: Colors.blue,
+            onSecondary: Colors.yellow[700],
+            error: Colors.red,
+            inversePrimary: Colors.green,
+            scrim: const Color.fromARGB(255, 224, 243, 255)),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
             fontSize: 40,
             fontWeight: FontWeight.w700,
           ),
-          bodySmall: const TextStyle(
+          bodySmall: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
           ),
-          bodyLarge: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
+          bodyLarge: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+          bodyMedium: TextStyle(
+            color: Colors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
           ),
           titleLarge: TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[800],
+            fontSize: 28,
+            fontWeight: FontWeight.w800,
+            color: Colors.black,
           ),
         ),
       ),
