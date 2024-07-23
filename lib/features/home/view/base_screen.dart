@@ -60,6 +60,7 @@ class BaseScreen extends StatelessWidget {
               ),
               const SizedBox(height: 80),
               MyBotton(
+                horizontal: MediaQuery.of(context).size.width / 3.4,
                 onPressed: () {},
                 text: "ПОЧАТИ",
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vlads_cards/consts.dart';
 import 'package:vlads_cards/widgets/my_button.dart';
 import '../widgets/widgets.dart';
 
@@ -10,6 +11,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+
   bool isHidden = false;
 
   @override
@@ -64,13 +68,19 @@ class _SignInScreenState extends State<SignInScreen> {
                 key: signInKey,
                 child: Column(
                   children: [
-                    const LoginInput(
+                    LoginInput(
+                      controller: emailTextEditingController,
+                      keyboardType: TextInputType.emailAddress,
+                      validationRegExp: EMAIL_VALIDATION_REGEX,
                       hintText: "Email Address",
                       obscureText: false,
-                      prefixIcon: Icon(Icons.email_outlined),
+                      prefixIcon: const Icon(Icons.email_outlined),
                     ),
                     const SizedBox(height: 15),
                     LoginInput(
+                      controller: passwordTextEditingController,
+                      keyboardType: TextInputType.number,
+                      validationRegExp: PASSWORD_VALIDATION_REGEX,
                       hintText: "Password",
                       obscureText: isHidden,
                       prefixIcon: const Icon(Icons.lock_open),
@@ -104,9 +114,14 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox(height: 40),
               MyBotton(
+                horizontal: MediaQuery.of(context).size.width / 2.6,
                 text: "Login",
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  print(emailTextEditingController.text);
+                  print(passwordTextEditingController.text);
+                  if (signInKey.currentState?.validate() ?? false) {
+                    Navigator.pushNamed(context, '/home');
+                  }
                 },
               ),
               const SizedBox(height: 40),
@@ -117,39 +132,42 @@ class _SignInScreenState extends State<SignInScreen> {
                   fontSize: 14,
                 ),
               ),
-              RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "Terms of Service",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.black,
-                        decorationThickness: 1.9,
+              InkWell(
+                onTap: () {},
+                child: RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Terms of Service",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.black,
+                          decorationThickness: 1.9,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: " and ",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
+                      TextSpan(
+                        text: " and ",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
                       ),
-                    ),
-                    TextSpan(
-                      text: "Privacy Policy.",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.black,
-                        decorationThickness: 1.9,
+                      TextSpan(
+                        text: "Privacy Policy.",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.black,
+                          decorationThickness: 1.9,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

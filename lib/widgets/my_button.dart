@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MyBotton extends StatelessWidget {
+  final double horizontal;
   final void Function()? onPressed;
   final String text;
 
   const MyBotton({
+    required this.horizontal,
     required this.text,
     required this.onPressed,
     super.key,
@@ -17,7 +19,7 @@ class MyBotton extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width / 2.6,
+          horizontal: horizontal,
           vertical: 20,
         ),
         onPressed: onPressed,
