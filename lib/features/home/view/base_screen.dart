@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vlads_cards/features/home/widgets/cards_box.dart';
+import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
+import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -13,6 +16,13 @@ class BaseScreen extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.sign_language_outlined),
+            onPressed: () {
+              context.read<EmailAuthBloc>().add(SignOut());
+              Navigator.pushNamed(context, '/');
+            },
+          ),
           elevation: 0,
           backgroundColor: Colors.white,
           floating: true,

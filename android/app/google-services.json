@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "262371782138",
+    "project_id": "vlad-scards",
+    "storage_bucket": "vlad-scards.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262371782138:android:fc2e0d52f79c316b0cc843",
+        "android_client_info": {
+          "package_name": "com.example.vlad_cards"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262371782138-6mntue5kcsukgota7cg0iddd5ni99ur1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMcMEUR9xBpuQuvIXiLTq9lHIs8BtxLiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262371782138-6mntue5kcsukgota7cg0iddd5ni99ur1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "262371782138-6cvj2k5popaehqu89tv06hd2b29odnpg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.expenceTrackerSqllite"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

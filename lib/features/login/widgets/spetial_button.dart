@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class SpetialButton extends StatelessWidget {
   final Widget widget;
   final String text;
+  final void Function()? onTap;
 
   const SpetialButton({
+    required this.onTap,
     required this.text,
     required this.widget,
     super.key,
@@ -14,7 +16,7 @@ class SpetialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 7,

@@ -1,4 +1,4 @@
-package com.example.expence_tracker_sqllite
+package com.example.vlad_cards
 
 import io.flutter.embedding.android.FlutterActivity
 
