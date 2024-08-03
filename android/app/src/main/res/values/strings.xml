@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<resources>
+    <string name="app_name">vlad_cards</string>
+    <string name="facebook_app_id">8169852019740983</string>
+    <string name="fb_login_protocol_scheme">fb8169852019740983</string>
+    <string name="facebook_client_token">c7fe6c0b35032ea3588eb6272f023860</string>
+</resources>

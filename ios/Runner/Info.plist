@@ -45,5 +45,22 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>FacabookAppID</key>
+	<string>8169852019740983</string>
+	<key>FacebookClientToken</key>
+	<string>c7fe6c0b35032ea3588eb6272f023860</string>
+	<key>FacebookDisplayName</key>
+	<string>User Authentication</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	  <string>
+	    fbapi
+	  </string>
+	  <string>
+	    fb-messanger-share-api
+	  </string>
+	</array>
+
 </dict>
 </plist>

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vlads_cards/database/database_service.dart';
 import 'package:vlads_cards/repositories/login/email_login/email_login_repository.dart';
-import 'package:vlads_cards/repositories/login/models/my_email_user_model.dart';
 import 'package:vlads_cards/repositories/login/models/my_user.dart';
 
 part 'email_auth_event.dart';

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vlads_cards/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
+import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
-// import 'database/database_service.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,6 +21,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => EmailAuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FacebookAuthBloc(),
         ),
       ],
       child: const MyApp(),

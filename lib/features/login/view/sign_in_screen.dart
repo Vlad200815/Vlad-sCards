@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:vlads_cards/consts.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/widgets/my_button.dart';
+import '../../../widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -28,13 +31,16 @@ class _SignInScreenState extends State<SignInScreen> {
       listener: (context, state) {
         if (state is EmailSignInSuccessState) {
           Navigator.pushNamed(context, '/home');
-          print("Light waight baby!!!");
+        } else if (state is EmailSignInProgressState) {
+          const Center(child: CircularProgressIndicator());
         }
       },
       child: BlocListener<GoogleAuthBloc, GoogleAuthState>(
         listener: (context, state) {
           if (state is GoogleAuthSuccess) {
             Navigator.pushNamed(context, '/home');
+          } else if (state is GoogleAuthProgress) {
+            const Center(child: CircularProgressIndicator());
           }
         },
         child: Scaffold(
@@ -45,6 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
+
                   SpetialButton(
                     onTap: () {
                       context.read<GoogleAuthBloc>().add(SignInWithGoogle());
@@ -52,10 +59,44 @@ class _SignInScreenState extends State<SignInScreen> {
                     text: "Login with Google",
                     widget: Image.asset("assets/google_logo.png"),
                   ),
+
+                  // BlocBuilder<FacebookAuthBloc, FacebookAuthState>(
+                  //   builder: (context, state) {
+                  //     if (state is FacebookAuthSeccuss) {
+                  //       Navigator.pushNamed(context, '/home');
+                  //     } else if (state is FacebookAuthProgress) {
+                  //       return const Center(
+                  //         child: CircularProgressIndicator(),
+                  //       );
+                  //     } else {
+                  //       const Center(child: Text("Something went wrong..."));
+                  //     }
+                  //     return SpetialButton(
+                  //       onTap: () {
+                  //         context
+                  //             .read<FacebookAuthBloc>()
+                  //             .add(FacebookSignInEvent());
+                  //       },
+                  //       text: "Login with Facebook",
+                  //       widget: Image.asset("assets/facebook_logo.png"),
+                  //     );
+                  //   },
+                  // ),
+
                   SpetialButton(
-                    onTap: () {},
-                    text: "Login with Apple",
-                    widget: Image.asset("assets/apple_logo.png"),
+                    onTap: () async {
+                      // final LoginResult loginResult =
+                      //     await FacebookAuth.instance.login();
+                      // final OAuthCredential facebookAuthCredential =
+                      //     FacebookAuthProvider.credential(
+                      //         loginResult.accessToken!.tokenString);
+                      // UserCredential userCredential = await FirebaseAuth
+                      //     .instance
+                      //     .signInWithCredential(facebookAuthCredential);
+                      // print(userCredential.user);
+                    },
+                    text: "Login with Facebook",
+                    widget: Image.asset("assets/facebook_logo.png"),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -99,7 +140,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(height: 15),
                         LoginInput(
                           controller: passwordTextEditingController,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.visiblePassword,
                           validationRegExp: PASSWORD_VALIDATION_REGEX,
                           hintText: "Password",
                           obscureText: isHidden,
@@ -132,8 +173,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  MyBotton(
+                  const SizedBox(height: 35),
+
+                  MyButton(
                     horizontal: MediaQuery.of(context).size.width / 3,
                     text: "Login",
                     onPressed: () {
@@ -150,7 +192,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       }
                     },
                   ),
-                  const SizedBox(height: 30),
+
+                  const SizedBox(height: 35),
                   const Text(
                     "By siging in with an accout, you agree to Vlad'sCards'",
                     style: TextStyle(

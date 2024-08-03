@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyBotton extends StatelessWidget {
+class MyButton extends StatelessWidget {
   final double horizontal;
   final void Function()? onPressed;
   final String text;
 
-  const MyBotton({
+  const MyButton({
     required this.horizontal,
     required this.text,
     required this.onPressed,

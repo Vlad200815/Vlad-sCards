@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vlads_cards/features/home/widgets/cards_box.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
-import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -13,6 +11,7 @@ class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -61,21 +60,21 @@ class BaseScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                  ),
+                child: SizedBox(
+                  height: 285,
+                  child: Image.asset('assets/200.webp'),
                 ),
               ),
               const SizedBox(height: 80),
-              MyBotton(
-                horizontal: MediaQuery.of(context).size.width / 3.4,
-                onPressed: () {},
-                text: "ПОЧАТИ",
+              MyButton(
+                horizontal: MediaQuery.of(context).size.width / 3,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/training');
+                },
+                text: "Start",
               ),
               const SizedBox(height: 40),
-              CardsBox()
+              const CardsBox()
             ],
           ),
         ),

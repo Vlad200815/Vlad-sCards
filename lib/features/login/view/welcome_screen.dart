@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/login_input.dart';
 import 'view.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -27,7 +25,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final GlobalKey<FormState> signInKey = GlobalKey();
 
     return Scaffold(
       body: Column(
@@ -74,7 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           Expanded(
             child: TabBarView(
               controller: tabController,
-              children: [
+              children: const [
                 SignInScreen(),
                 SignUpScreen(),
               ],

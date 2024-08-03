@@ -20,16 +20,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      floatingActionButton: bottomBarIndex == 0
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/add_new_word');
+              },
+              shape: const CircleBorder(),
+              backgroundColor: theme.colorScheme.onPrimary,
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            )
+          : null,
       backgroundColor: theme.colorScheme.surface,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        shape: const CircleBorder(),
-        backgroundColor: theme.colorScheme.onPrimary,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-      ),
       body: bottomBarIndex == 0
           ? const BaseScreen()
           : bottomBarIndex == 1

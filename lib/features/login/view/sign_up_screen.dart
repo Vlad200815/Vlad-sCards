@@ -5,7 +5,6 @@ import 'package:vlads_cards/consts.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/features/login/widgets/widgets.dart';
-import 'package:vlads_cards/repositories/login/models/my_email_user_model.dart';
 import 'package:vlads_cards/widgets/widgets.dart';
 
 import '../../../repositories/login/models/models.dart';
@@ -55,8 +54,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SpetialButton(
                   onTap: () {},
-                  text: "Sign Up with Apple",
-                  widget: Image.asset("assets/apple_logo.png"),
+                  text: "Sign Up with Facebook",
+                  widget: Image.asset("assets/facebook_logo.png"),
                 ),
                 const SizedBox(height: 20),
                 Row(
@@ -100,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 15),
                       LoginInput(
                         controller: passwordTextEditingController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.visiblePassword,
                         validationRegExp: PASSWORD_VALIDATION_REGEX,
                         hintText: "Password",
                         obscureText: isHidden,
@@ -121,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 15),
                       LoginInput(
                         controller: repeatPasswordTextEditingController,
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.visiblePassword,
                         validationRegExp: PASSWORD_VALIDATION_REGEX,
                         hintText: "Conform password",
                         obscureText: isHidden,
@@ -143,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                MyBotton(
+                MyButton(
                   horizontal: MediaQuery.of(context).size.width / 3,
                   text: "Sign Up",
                   onPressed: () {
@@ -158,9 +157,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           email: emailTextEditingController.text,
                           password: passwordTextEditingController.text,
                         );
+
                         context
                             .read<EmailAuthBloc>()
                             .add(SignUpWithEmailEvent(myUser: myEmailUser));
+
                         debugPrint(emailTextEditingController.text);
                         debugPrint(passwordTextEditingController.text);
                         debugPrint(repeatPasswordTextEditingController.text);

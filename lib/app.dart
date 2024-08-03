@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vlads_cards/features/add_new_word/add_new_word.dart';
+import 'package:vlads_cards/features/training/view/training_screen.dart';
 import 'features/home/view/view.dart';
 import 'features/login/view/view.dart';
 
@@ -12,20 +14,23 @@ class MyApp extends StatelessWidget {
         '/': (context) => const WelcomeScreen(),
         '/forgot_pswd': (context) => const ForgotPswdScreen(),
         '/home': (context) => const HomeScreen(),
+        '/add_new_word': (context) => const AddNewWordScreen(),
+        '/training': (context) => const TrainingScreen(),
       },
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 0, 94, 255),
-            brightness: Brightness.light,
-            surface: const Color.fromARGB(255, 244, 250, 253),
-            onPrimary: Colors.blue,
-            onSecondary: Colors.yellow[700],
-            error: Colors.red,
-            inversePrimary: Colors.green,
-            scrim: const Color.fromARGB(255, 224, 243, 255)),
+          seedColor: const Color.fromARGB(255, 0, 94, 255),
+          brightness: Brightness.light,
+          surface: const Color.fromARGB(255, 244, 250, 253),
+          onPrimary: Colors.blue,
+          onSecondary: Colors.yellow[700],
+          error: Colors.red,
+          inversePrimary: Colors.green,
+          scrim: const Color.fromARGB(255, 224, 243, 255),
+        ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 40,
