@@ -51,7 +51,11 @@ dependencies:
   flutter_card_swiper: ^7.0.1
   dio: ^5.6.0
   translator: ^1.0.0
-
+  
+  talker_dio_logger: ^4.4.0
+  talker_flutter: ^4.4.0
+  talker_bloc_logger: ^4.4.1
+  get_it: ^7.7.0
 
 
 

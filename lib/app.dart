@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/features/add_new_word/add_new_word.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/view/choose_words_screen.dart';
@@ -12,6 +14,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        TalkerRouteObserver(
+          GetIt.I<Talker>(),
+        ),
+      ],
       routes: {
         '/': (context) => const WelcomeScreen(),
         '/forgot_pswd': (context) => const ForgotPswdScreen(),

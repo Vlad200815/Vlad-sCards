@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/database/database_service.dart';
 import 'package:vlads_cards/repositories/login/email_login/email_login_repository.dart';
 import 'package:vlads_cards/repositories/login/models/my_user.dart';
@@ -24,9 +26,9 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
             event.email, event.password);
 
         emit(EmailSignInSuccessState());
-      } catch (e) {
+      } catch (e, st) {
         emit(EmailSignInFailureState());
-        debugPrint(e.toString());
+        GetIt.I<Talker>().handle(e, st);
       }
     });
 
@@ -41,5 +43,11 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
         debugPrint(e.toString());
       }
     });
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    GetIt.I<Talker>().handle(error, stackTrace);
   }
 }
