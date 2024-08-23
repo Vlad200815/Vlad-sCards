@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vlads_cards/features/add_new_word/add_new_word.dart';
+import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
+import 'package:vlads_cards/features/packes_of_words/view/choose_words_screen.dart';
 import 'package:vlads_cards/features/training/view/training_screen.dart';
 import 'features/home/view/view.dart';
 import 'features/login/view/view.dart';
@@ -16,6 +18,9 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/add_new_word': (context) => const AddNewWordScreen(),
         '/training': (context) => const TrainingScreen(),
+        '/packes_of_words_screen': (context) => const WordsPackesScreen(),
+        '/packes_of_words_screen/choose_words': (context) =>
+            const ChooseWordsScreen(),
       },
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
@@ -28,8 +33,9 @@ class MyApp extends StatelessWidget {
           onPrimary: Colors.blue,
           onSecondary: Colors.yellow[700],
           error: Colors.red,
-          inversePrimary: Colors.green,
+          inversePrimary: const Color.fromARGB(255, 95, 220, 101),
           scrim: const Color.fromARGB(255, 224, 243, 255),
+          onPrimaryFixed: Colors.grey[350],
         ),
         textTheme: const TextTheme(
           displayLarge: TextStyle(

@@ -1,1 +1,1 @@
-export '';
+export 'middle_card.dart';

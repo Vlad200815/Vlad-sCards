@@ -12,7 +12,7 @@ class WordsPackesScreen extends StatelessWidget {
         return 'A$index';
       } else if (index <= 4 && index > 2) {
         return 'B${index - 2}';
-      } else if (index <= 7 && index > 4) {
+      } else if (index <= 5 && index > 4) {
         return 'C${index - 4}';
       } else {
         return '';
@@ -20,9 +20,7 @@ class WordsPackesScreen extends StatelessWidget {
     }
 
     String englishTextLevel(int index) {
-      if (index == 0) {
-        return "Elementary";
-      } else if (index == 1) {
+      if (index == 1) {
         return "Begginer";
       } else if (index == 2) {
         return "Pre-Intermidiat";
@@ -66,10 +64,14 @@ class WordsPackesScreen extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
+                index = index + 1;
                 return Padding(
                   padding: const EdgeInsets.all(4),
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, '/packes_of_words_screen/choose_words');
+                    },
                     child: Ink(
                       decoration: BoxDecoration(
                           color: Colors.teal[100 * ((index + 1) % 9)],
@@ -84,7 +86,7 @@ class WordsPackesScreen extends StatelessWidget {
                   ),
                 );
               },
-              childCount: 6,
+              childCount: 5,
             ),
           ),
         ],
