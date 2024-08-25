@@ -49,8 +49,11 @@ dependencies:
   
   flip_card: ^0.7.0
   flutter_card_swiper: ^7.0.1
+
   dio: ^5.6.0
+
   translator: ^1.0.0
+  flutter_tts: ^4.0.2
   
   talker_dio_logger: ^4.4.0
   talker_flutter: ^4.4.0

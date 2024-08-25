@@ -4,6 +4,11 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
         <provider android:authorities="com.facebook.orca.provider.PlatformProvider" />
     </queries>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
     
     <!-- <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/> -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,8 +17,10 @@
         <application
             android:label="vlad_cards"
             android:name="${applicationName}"
-            android:icon="@mipmap/ic_launcher">
-
+            android:icon="@mipmap/ic_launcher"
+            
+            android:usesCleartextTraffic="true">
+          
       
         
 

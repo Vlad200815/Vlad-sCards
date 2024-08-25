@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/english_words_api_bloc/english_words_api_bloc.dart';
 
 class WordsPackesScreen extends StatelessWidget {
   const WordsPackesScreen({super.key});
@@ -69,6 +72,9 @@ class WordsPackesScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(4),
                   child: InkWell(
                     onTap: () {
+                      context
+                          .read<EnglishWordsApiBloc>()
+                          .add(OnEnlishWordsApiEvent());
                       Navigator.pushNamed(
                           context, '/packes_of_words_screen/choose_words');
                     },

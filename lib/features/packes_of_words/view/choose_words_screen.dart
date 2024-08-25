@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/features/packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 
@@ -30,14 +32,15 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
     },
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    context.read<EnglishWordsApiBloc>().add(OnEnlishWordsApiEvent());
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<EnglishWordsApiBloc>().add(OnEnlishWordsApiEvent());
+  // }
 
   List<Map<String, String>> know = [];
   List<Map<String, String>> dontKnow = [];
+  final talker = GetIt.I<Talker>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
       body: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 14),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -189,8 +192,10 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
           BlocBuilder<EnglishWordsApiBloc, EnglishWordsApiState>(
             builder: (context, state) {
               if (state is EnglishWordsApiSuccess) {
+                var words2 = state.response.data["words"] as List;
+
                 return Draggable(
-                  data: words.first,
+                  data: state.response.extra,
                   childWhenDragging: Material(
                     child: words.length > 1
                         ? MiddleCard(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/features/add_new_word/add_new_word.dart';
+import 'package:vlads_cards/features/packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/view/choose_words_screen.dart';
 import 'package:vlads_cards/features/training/view/training_screen.dart';
@@ -24,7 +26,10 @@ class MyApp extends StatelessWidget {
         '/forgot_pswd': (context) => const ForgotPswdScreen(),
         '/home': (context) => const HomeScreen(),
         '/add_new_word': (context) => const AddNewWordScreen(),
-        '/training': (context) => const TrainingScreen(),
+        '/training': (context) => BlocProvider(
+              create: (context) => EnglishWordsApiBloc(),
+              child: const TrainingScreen(),
+            ),
         '/packes_of_words_screen': (context) => const WordsPackesScreen(),
         '/packes_of_words_screen/choose_words': (context) =>
             const ChooseWordsScreen(),
