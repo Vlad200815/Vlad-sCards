@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'view.dart';
 
 class WelcomeScreen extends StatefulWidget {
