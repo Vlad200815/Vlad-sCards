@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vlads_cards/features/settings/widgets/tile.dart';
 
-import '../../general_blocs/theme_change_cubit/theme_change_cubit.dart';
+import '../../../general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import '../../login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import '../widgets/widgets.dart';
 

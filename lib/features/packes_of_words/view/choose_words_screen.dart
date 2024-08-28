@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/widgets/side_card.dart';
 
@@ -56,7 +56,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(bottom: 20, top: 35),
-                    color: Colors.white,
+                    color: theme.colorScheme.onPrimaryFixed,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -64,9 +64,9 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             CupertinoIcons.chevron_back,
-                            color: Colors.black,
+                            color: theme.colorScheme.inversePrimary,
                           ),
                         ),
                         const SizedBox(width: 10),
@@ -80,17 +80,18 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                             const SizedBox(width: 6),
                             Text(
                               "A1 Words",
-                              style: theme.textTheme.bodyLarge!
-                                  .copyWith(fontWeight: FontWeight.w400),
+                              style: theme.textTheme.bodyLarge!.copyWith(
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(width: 20),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.water_drop_rounded,
-                            color: Colors.blue[300],
+                            color: Colors.blue,
                             size: 30,
                           ),
                         ),
@@ -108,7 +109,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                         width: MediaQuery.of(context).size.width - 60,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.onPrimaryFixed,
+                          color: Colors.green,
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
@@ -263,7 +264,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                         width: MediaQuery.of(context).size.width - 60,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.onPrimaryFixed,
+                          color: Colors.grey,
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),

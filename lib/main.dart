@@ -9,8 +9,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
-import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
-import 'features/general_blocs/theme_change_cubit/theme_change_cubit.dart';
+import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {

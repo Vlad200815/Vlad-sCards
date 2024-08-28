@@ -6,7 +6,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 
 import '../widgets/widgets.dart';
 
@@ -61,9 +61,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
           // The side to initially display.
           front: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: theme.colorScheme.onTertiary,
               border: Border.all(
-                color: Colors.grey.shade300,
+                color: Colors.grey.shade200,
               ),
               borderRadius: BorderRadius.circular(20),
             ),
@@ -111,7 +111,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         IconButton(
                           icon: Icon(
                             Icons.volume_up_outlined,
-                            color: theme.colorScheme.onPrimary,
+                            color: theme.colorScheme.primary,
                             size: 30,
                           ),
                           onPressed: () async {
@@ -134,7 +134,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
           ),
           back: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: theme.colorScheme.onTertiary,
               border: Border.all(
                 color: Colors.grey.shade300,
               ),
@@ -217,7 +217,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     IconButton(
                       icon: Icon(
                         Icons.volume_up_outlined,
-                        color: theme.colorScheme.onPrimary,
+                        color: theme.colorScheme.primary,
                         size: 30,
                       ),
                       onPressed: () async {
@@ -254,7 +254,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
     List<int> dontKnow = [];
     //All Screen
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: theme.colorScheme.onPrimaryFixed,
       body: Column(
         children: [
           const SizedBox(height: 30),

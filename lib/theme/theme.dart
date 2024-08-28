@@ -2,20 +2,6 @@ import 'package:flutter/material.dart';
 
 const primaryColor = Colors.blue;
 
-// final themeData = ThemeData(
-//   useMaterial3: true,
-//   colorScheme: ColorScheme.fromSeed(
-//     seedColor: const Color.fromARGB(255, 0, 94, 255),
-//     brightness: Brightness.light,
-//     surface: const Color.fromARGB(255, 244, 250, 253),
-//     onSecondary: Colors.yellow[700],
-//     error: Colors.red,
-//     inversePrimary: const Color.fromARGB(255, 95, 220, 101),
-//     scrim: const Color.fromARGB(255, 224, 243, 255),
-//     onPrimaryFixed: Colors.grey[350],
-//   ),
-// );
-
 //LIGHT THEME
 final lightTheme = ThemeData(
   useMaterial3: true,
@@ -33,6 +19,7 @@ final lightTheme = ThemeData(
     inversePrimary: Colors.black,
     onSecondary: const Color.fromARGB(255, 200, 234, 255),
     onTertiary: Colors.white,
+    // onPrimaryContainer: Colors.grey.shade100,
     brightness: Brightness.light,
   ),
 );

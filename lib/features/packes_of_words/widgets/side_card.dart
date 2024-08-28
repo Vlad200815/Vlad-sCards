@@ -47,14 +47,16 @@ class SideCard extends StatelessWidget {
                 onTap: () {},
                 child: Icon(
                   Icons.volume_up_outlined,
-                  color: theme.colorScheme.onPrimary,
+                  color: theme.colorScheme.primary,
                   size: volumnButtonSize,
                 ),
               ),
               const SizedBox(width: 8),
               Text(
                 english,
-                style: theme.textTheme.bodyLarge,
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  color: Colors.black,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -63,7 +65,7 @@ class SideCard extends StatelessWidget {
             example,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodySmall!.copyWith(
-              color: Colors.grey[400],
+              color: const Color.fromARGB(255, 94, 94, 94),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -84,7 +86,7 @@ class SideCard extends StatelessWidget {
                   Text(
                     ukrainian,
                     style: theme.textTheme.bodySmall!.copyWith(
-                      color: Colors.grey[400],
+                      color: const Color.fromARGB(255, 94, 94, 94),
                       fontWeight: FontWeight.w500,
                     ),
                   ),

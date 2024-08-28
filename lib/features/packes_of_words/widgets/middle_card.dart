@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
-
 class MiddleCard extends StatelessWidget {
   const MiddleCard({
     required this.loadedItmes,
@@ -53,14 +51,16 @@ class MiddleCard extends StatelessWidget {
                     onTap: () {},
                     child: Icon(
                       Icons.volume_up_outlined,
-                      color: theme.colorScheme.onPrimary,
+                      color: theme.colorScheme.primary,
                       size: volumnButtonSize,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Text(
                     words[index]["english"],
-                    style: theme.textTheme.bodyLarge,
+                    style: theme.textTheme.bodyLarge!.copyWith(
+                      color: Colors.black,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
@@ -69,7 +69,7 @@ class MiddleCard extends StatelessWidget {
                 words[index]['example'],
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall!.copyWith(
-                  color: Colors.grey[400],
+                  color: const Color.fromARGB(255, 94, 94, 94),
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -90,7 +90,7 @@ class MiddleCard extends StatelessWidget {
                       Text(
                         words[index]['ukrainian'],
                         style: theme.textTheme.bodySmall!.copyWith(
-                          color: Colors.grey[400],
+                          color: const Color.fromARGB(255, 94, 94, 94),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
