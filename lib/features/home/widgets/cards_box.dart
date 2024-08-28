@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vlads_cards/features/cards_list/view/view.dart';
 
 class CardsBox extends StatelessWidget {
   const CardsBox({super.key});
@@ -9,12 +8,7 @@ class CardsBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const CardsListScreen(),
-        ),
-      ),
+      onTap: () => Navigator.pushNamed(context, '/cards_list_screen'),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Align(

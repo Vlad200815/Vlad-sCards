@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vlads_cards/features/settings/widgets/tile.dart';
 
+import '../../login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import '../widgets/widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -11,7 +14,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool themeSwitch = false;
-  bool notificationsSwitch = false;
+  bool notificationsSwitch = true;
   bool analyticsSwitch = false;
 
   @override
@@ -58,6 +61,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     setState(() {
                       analyticsSwitch = value;
                     });
+                  },
+                ),
+                MyTile(
+                  icon: const Icon(
+                    Icons.door_back_door,
+                    color: Colors.red,
+                    size: 30,
+                  ),
+                  text: "Sign Out",
+                  onPressed: () {
+                    context.read<EmailAuthBloc>().add(SignOut());
+                    Navigator.pushNamed(context, '/');
                   },
                 ),
               ],

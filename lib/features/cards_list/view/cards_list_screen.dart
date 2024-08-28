@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
@@ -12,10 +13,20 @@ class CardsListScreen extends StatelessWidget {
       backgroundColor: theme.colorScheme.surface,
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
+            leading: IconButton(
+              onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/home',
+                (Route<dynamic> route) => false,
+              ),
+              icon: const Icon(
+                CupertinoIcons.chevron_back,
+              ),
+            ),
             elevation: 3,
             backgroundColor: Colors.white,
-            title: Text("Words"),
+            title: const Text("Words"),
             automaticallyImplyLeading: true,
             centerTitle: true,
             expandedHeight: 70,

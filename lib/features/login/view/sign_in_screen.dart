@@ -43,7 +43,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   }
                   return BlocListener<GoogleAuthBloc, GoogleAuthState>(
                     listener: (context, state) {
-                      Navigator.pushNamed(context, "/home");
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        "/home",
+                        (Route<dynamic> route) => false,
+                      );
                     },
                     child: SpetialButton(
                       onTap: () {

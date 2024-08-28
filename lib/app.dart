@@ -7,6 +7,7 @@ import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/englis
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/view/choose_words_screen.dart';
 import 'package:vlads_cards/features/training/view/training_screen.dart';
+import 'features/cards_list/view/cards_list_screen.dart';
 import 'features/home/view/view.dart';
 import 'features/login/view/view.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/packes_of_words_screen': (context) => const WordsPackesScreen(),
         '/packes_of_words_screen/choose_words': (context) =>
             const ChooseWordsScreen(),
+        '/cards_list_screen': (context) => const CardsListScreen()
       },
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
