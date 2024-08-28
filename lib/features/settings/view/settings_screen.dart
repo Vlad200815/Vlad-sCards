@@ -10,7 +10,10 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool switchValue = false;
+  bool themeSwitch = false;
+  bool notificationsSwitch = false;
+  bool analyticsSwitch = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -32,28 +35,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const SizedBox(height: 12),
                 MySwitch(
                   text: "Dark Theme",
-                  value: switchValue,
+                  value: themeSwitch,
                   onChanged: (value) {
                     setState(() {
-                      value = !value;
+                      themeSwitch = value;
                     });
                   },
                 ),
                 MySwitch(
                   text: "Notifications",
-                  value: switchValue,
+                  value: notificationsSwitch,
                   onChanged: (value) {
                     setState(() {
-                      value = !value;
+                      notificationsSwitch = value;
                     });
                   },
                 ),
                 MySwitch(
                   text: "Allow Analitics",
-                  value: switchValue,
+                  value: analyticsSwitch,
                   onChanged: (value) {
                     setState(() {
-                      value = !value;
+                      analyticsSwitch = value;
                     });
                   },
                 ),

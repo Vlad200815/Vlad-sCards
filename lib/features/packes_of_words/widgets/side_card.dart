@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
-
 class SideCard extends StatelessWidget {
   const SideCard({
     required this.ukrainian,
