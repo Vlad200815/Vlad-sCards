@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
-import 'package:vlads_cards/features/packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {

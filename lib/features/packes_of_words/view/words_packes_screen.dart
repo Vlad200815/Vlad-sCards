@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/english_words_api_bloc/english_words_api_bloc.dart';
+import '../../general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 
 class WordsPackesScreen extends StatelessWidget {
   const WordsPackesScreen({super.key});

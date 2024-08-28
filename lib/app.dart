@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/features/add_new_word/add_new_word.dart';
-import 'package:vlads_cards/features/packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/view/choose_words_screen.dart';
 import 'package:vlads_cards/features/training/view/training_screen.dart';

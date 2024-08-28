@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+
 class MiddleCard extends StatelessWidget {
   const MiddleCard({
-    required this.english,
+    required this.loadedItmes,
+    required this.words,
+    required this.imagePath,
     required this.imageHeight,
     required this.imageWidth,
     required this.width,
@@ -12,7 +16,9 @@ class MiddleCard extends StatelessWidget {
     super.key,
   });
 
-  final String english;
+  final int loadedItmes;
+  final List<Map<String, dynamic>> words;
+  final String imagePath;
   final double width;
   final double height;
   final double topSizedBox;
@@ -22,10 +28,14 @@ class MiddleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int loadedItems = loadedItmes;
+
     final theme = Theme.of(context);
-    return Stack(
-      children: [
-        Container(
+    List<Widget> cards = List.generate(
+      loadedItems,
+      (int index) {
+        index = 3;
+        return Container(
           width: width,
           height: height,
           decoration: BoxDecoration(
@@ -49,14 +59,14 @@ class MiddleCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    english,
+                    words[index]["english"],
                     style: theme.textTheme.bodyLarge,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
               Text(
-                "The young fish was really fast",
+                words[index]['example'],
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall!.copyWith(
                   color: Colors.grey[400],
@@ -74,11 +84,11 @@ class MiddleCard extends StatelessWidget {
                         width: imageWidth,
                         height: imageHeight,
                         child: Image.asset(
-                          'assets/flash-card.png',
+                          imagePath,
                         ),
                       ),
                       Text(
-                        "риба",
+                        words[index]['ukrainian'],
                         style: theme.textTheme.bodySmall!.copyWith(
                           color: Colors.grey[400],
                           fontWeight: FontWeight.w500,
@@ -90,8 +100,10 @@ class MiddleCard extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
+
+    return Stack(children: cards);
   }
 }

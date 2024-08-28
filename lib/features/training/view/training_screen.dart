@@ -6,7 +6,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:vlads_cards/features/packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/features/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 
 import '../widgets/widgets.dart';
 
@@ -16,8 +16,6 @@ class TrainingScreen extends StatefulWidget {
   @override
   State<TrainingScreen> createState() => _TrainingScreenState();
 }
-
-enum Direction { right, left }
 
 class _TrainingScreenState extends State<TrainingScreen> {
   List<GlobalKey<FlipCardState>> cardKeys = [];
@@ -374,12 +372,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   ),
                 );
               } else if (state is EnglishWordsApiProgress) {
-                return const Center(
+                return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 2.3),
+                      const CircularProgressIndicator(),
                     ],
                   ),
                 );

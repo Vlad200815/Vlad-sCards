@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
@@ -19,7 +15,13 @@ class EnglishWordsApiBloc
     on<OnEnlishWordsApiEvent>((event, emit) async {
       emit(EnglishWordsApiProgress());
       try {
-        final dio = Dio();
+        final dio = Dio(
+          BaseOptions(
+            connectTimeout: const Duration(minutes: 5),
+            receiveTimeout: const Duration(minutes: 5),
+            sendTimeout: const Duration(minutes: 1),
+          ),
+        );
         dio.interceptors.add(TalkerDioLogger());
         final Response response =
             await dio.get("https://english-words-api-xq8o.onrender.com/words");

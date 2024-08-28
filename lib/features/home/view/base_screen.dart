@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vlads_cards/features/home/widgets/cards_box.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/widgets/widgets.dart';
-import '../../packes_of_words/bloc/english_words_api_bloc/english_words_api_bloc.dart';
+import '../../general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import '../widgets/widgets.dart';
 
 class BaseScreen extends StatelessWidget {
