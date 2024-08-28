@@ -10,7 +10,7 @@ class CardsListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: theme.colorScheme.onPrimaryFixed,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -25,7 +25,7 @@ class CardsListScreen extends StatelessWidget {
               ),
             ),
             elevation: 3,
-            backgroundColor: Colors.white,
+            backgroundColor: theme.colorScheme.onPrimaryFixed,
             title: const Text("Words"),
             automaticallyImplyLeading: true,
             centerTitle: true,
@@ -54,12 +54,12 @@ class CardsListScreen extends StatelessWidget {
                           actions: [
                             DialogButton(
                               onTap: () {},
-                              color: Colors.black,
+                              color: theme.colorScheme.inversePrimary,
                               text: 'Edit',
                               widget: const Icon(Icons.edit),
                             ),
                             DialogButton(
-                              color: Colors.black,
+                              color: theme.colorScheme.inversePrimary,
                               onTap: () {},
                               text: 'Reset',
                               widget: const Icon(Icons.restore_outlined),

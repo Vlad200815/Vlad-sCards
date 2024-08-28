@@ -26,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushNamed(context, '/add_new_word');
               },
               shape: const CircleBorder(),
-              backgroundColor: theme.colorScheme.onPrimary,
+              backgroundColor: theme.colorScheme.primary,
               child: const Icon(
                 Icons.add,
                 color: Colors.white,
               ),
             )
           : null,
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: theme.colorScheme.onPrimaryFixed,
       body: bottomBarIndex == 0
           ? const BaseScreen()
           : bottomBarIndex == 1
@@ -54,32 +54,42 @@ class _HomeScreenState extends State<HomeScreen> {
           // fixedColor: theme.colorScheme.onPrimary,
           showUnselectedLabels: false,
           showSelectedLabels: false,
-          backgroundColor: Colors.white,
+          backgroundColor: theme.colorScheme.onSecondary,
           items: [
             BottomNavigationBarItem(
               icon: bottomBarIndex == 0
                   ? Icon(
                       Icons.view_carousel_rounded,
-                      color: theme.colorScheme.onPrimary,
+                      color: theme.colorScheme.primary,
                     )
                   : Icon(
                       Icons.view_carousel_rounded,
-                      color: theme.colorScheme.outline,
+                      color: Colors.grey[200],
                     ),
               label: "Cards",
             ),
             BottomNavigationBarItem(
               icon: bottomBarIndex == 1
-                  ? Icon(Icons.menu_book_rounded,
-                      color: theme.colorScheme.onPrimary)
-                  : Icon(Icons.menu_book_rounded,
-                      color: theme.colorScheme.outline),
+                  ? Icon(
+                      Icons.menu_book_rounded,
+                      color: theme.colorScheme.primary,
+                    )
+                  : Icon(
+                      Icons.menu_book_rounded,
+                      color: Colors.grey[200],
+                    ),
               label: "New Words",
             ),
             BottomNavigationBarItem(
               icon: bottomBarIndex == 2
-                  ? Icon(Icons.settings, color: theme.colorScheme.onPrimary)
-                  : Icon(Icons.settings, color: theme.colorScheme.outline),
+                  ? Icon(
+                      Icons.settings,
+                      color: theme.colorScheme.primary,
+                    )
+                  : Icon(
+                      Icons.settings,
+                      color: Colors.grey[200],
+                    ),
               label: "Settinsg",
             ),
           ],

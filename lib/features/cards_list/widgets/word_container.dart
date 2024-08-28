@@ -19,19 +19,19 @@ class WordContainer extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       height: 80,
-      color: Colors.white,
+      color: theme.colorScheme.onPrimaryFixed,
       child: Row(
         children: [
           const SizedBox(width: 15),
           Row(
             children: [
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   Icon(
                     Icons.battery_3_bar_outlined,
-                    color: theme.colorScheme.inversePrimary,
+                    color: Colors.green,
                   ),
                 ],
               ),

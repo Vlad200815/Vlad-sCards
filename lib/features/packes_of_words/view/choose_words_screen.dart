@@ -108,7 +108,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                         width: MediaQuery.of(context).size.width - 60,
                         height: 200,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.inversePrimary,
+                          color: theme.colorScheme.onPrimaryFixed,
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),

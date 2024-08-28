@@ -21,8 +21,10 @@ class MySwitch extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.white),
+            color: theme.colorScheme.onTertiary,
+            border: Border.all(
+              color: theme.colorScheme.onTertiary,
+            ),
             borderRadius: BorderRadius.circular(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

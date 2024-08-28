@@ -16,14 +16,19 @@ class MyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 6,
+      ),
       child: InkWell(
         onTap: onPressed,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.white),
+              color: theme.colorScheme.onTertiary,
+              border: Border.all(
+                color: theme.colorScheme.onTertiary,
+              ),
               borderRadius: BorderRadius.circular(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

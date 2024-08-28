@@ -18,9 +18,9 @@ class CardsBox extends StatelessWidget {
             height: 60,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: theme.colorScheme.onPrimary,
               border: Border.all(
-                color: theme.colorScheme.outline,
+                color: theme.colorScheme.inversePrimary,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(8),
@@ -28,17 +28,17 @@ class CardsBox extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Icon(
-                  CupertinoIcons.chevron_down,
-                ),
-                const SizedBox(width: 12),
                 Text(
-                  "Показати всі кардки",
-                  style: theme.textTheme.bodySmall,
+                  "Show all the cards",
+                  style: theme.textTheme.bodySmall!.copyWith(
+                    color: theme.colorScheme.inversePrimary,
+                    fontSize: 17,
+                  ),
                 ),
                 const SizedBox(width: 12),
-                const Icon(
+                Icon(
                   CupertinoIcons.chevron_down,
+                  color: theme.colorScheme.inversePrimary,
                 ),
               ],
             ),

@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:vlads_cards/consts.dart';
 import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
@@ -28,7 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final GlobalKey<FormState> signInKey = GlobalKey();
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.scrim,
+      backgroundColor: theme.colorScheme.onPrimary,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -111,9 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Text(
                       "or continue with email",
-                      style: theme.textTheme.bodySmall!.copyWith(
-                        color: Colors.grey[800],
-                      ),
+                      style: theme.textTheme.bodySmall,
                     ),
                   ),
                   Expanded(
@@ -173,14 +169,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 35),
+              const SizedBox(height: 45),
 
               MyButton(
                 horizontal: MediaQuery.of(context).size.width / 3,
                 text: "Login",
                 onPressed: () {
-                  print(emailTextEditingController.text);
-                  print(passwordTextEditingController.text);
+                  debugPrint(emailTextEditingController.text);
+                  debugPrint(passwordTextEditingController.text);
                   if (signInKey.currentState?.validate() ?? false) {
                     // Navigator.pushNamed(context, '/home');
                     context.read<EmailAuthBloc>().add(
@@ -193,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
 
-              const SizedBox(height: 35),
+              const SizedBox(height: 45),
               const Text(
                 "By siging in with an accout, you agree to Vlad'sCards'",
                 style: TextStyle(
@@ -204,20 +200,21 @@ class _SignInScreenState extends State<SignInScreen> {
               InkWell(
                 onTap: () {},
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     children: [
                       TextSpan(
                         text: "Terms of Service",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: theme.colorScheme.inversePrimary,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.black,
-                          decorationThickness: 1.9,
+                          decorationColor:
+                              theme.colorScheme.inversePrimary.withOpacity(0.8),
+                          decorationThickness: 1,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: " and ",
                         style: TextStyle(
                           color: Colors.grey,
@@ -227,12 +224,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       TextSpan(
                         text: "Privacy Policy.",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: theme.colorScheme.inversePrimary,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           decoration: TextDecoration.underline,
-                          decorationColor: Colors.black,
-                          decorationThickness: 1.9,
+                          decorationColor:
+                              theme.colorScheme.inversePrimary.withOpacity(0.8),
+                          decorationThickness: 1,
                         ),
                       ),
                     ],

@@ -1,12 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class Box extends StatelessWidget {
-  String text;
-  String hint;
-  Color? textColor;
+  final String text;
+  final String hint;
+  final Color? textColor;
 
-  Box({
+  const Box({
     super.key,
     required this.text,
     required this.hint,
@@ -15,11 +14,12 @@ class Box extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: 110,
       height: 70,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.onTertiary,
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           color: Colors.grey.shade300,

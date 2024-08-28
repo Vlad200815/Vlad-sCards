@@ -39,7 +39,7 @@ class WordsPackesScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: theme.colorScheme.onPrimaryFixed,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
@@ -81,7 +81,9 @@ class WordsPackesScreen extends StatelessWidget {
                     child: Ink(
                       decoration: BoxDecoration(
                           color: Colors.teal[100 * ((index + 1) % 9)],
-                          border: Border.all(color: Colors.white),
+                          border: Border.all(
+                            color: theme.colorScheme.onPrimaryFixed,
+                          ),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: Text(

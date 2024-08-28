@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vlads_cards/features/home/widgets/cards_box.dart';
 import 'package:vlads_cards/widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -14,7 +13,7 @@ class BaseScreen extends StatelessWidget {
       slivers: [
         SliverAppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: theme.colorScheme.onPrimary,
           floating: true,
           centerTitle: true,
           title: Text(
@@ -26,25 +25,25 @@ class BaseScreen extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Box(
                       text: "383",
-                      hint: "Вчити",
-                      textColor: theme.colorScheme.onPrimary,
+                      hint: "Learn",
+                      textColor: Colors.blue,
                     ),
                     Box(
                       text: "111",
-                      hint: "Знаю",
-                      textColor: theme.colorScheme.inversePrimary,
+                      hint: "Know",
+                      textColor: Color.fromARGB(255, 46, 239, 52),
                     ),
                     Box(
                       text: "237",
-                      hint: "Навчився",
-                      textColor: theme.colorScheme.onSecondary,
+                      hint: "Learned",
+                      textColor: Color.fromARGB(255, 255, 233, 34),
                     ),
                   ],
                 ),

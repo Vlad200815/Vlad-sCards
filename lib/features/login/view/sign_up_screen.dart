@@ -38,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: theme.colorScheme.scrim,
+        backgroundColor: theme.colorScheme.onPrimary,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -70,9 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
                         "or continue with email",
-                        style: theme.textTheme.bodySmall!.copyWith(
-                          color: Colors.grey[800],
-                        ),
+                        style: theme.textTheme.bodySmall,
                       ),
                     ),
                     Expanded(

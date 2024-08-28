@@ -32,7 +32,9 @@ class SpetialButton extends StatelessWidget {
             children: [
               SizedBox(height: 35, child: widget),
               const SizedBox(width: 20),
-              Text(text, style: theme.textTheme.bodyLarge),
+              Text(text,
+                  style:
+                      theme.textTheme.bodyLarge!.copyWith(color: Colors.black)),
             ],
           ),
         ),

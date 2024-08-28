@@ -29,6 +29,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.onPrimaryFixed,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -49,9 +50,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             enableFeedback: true,
             indicator: BoxDecoration(
               border: Border.all(
-                color: theme.colorScheme.scrim,
+                color: theme.colorScheme.onPrimary,
               ),
-              color: theme.colorScheme.scrim,
+              color: theme.colorScheme.onPrimary,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),

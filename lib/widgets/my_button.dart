@@ -23,7 +23,7 @@ class MyButton extends StatelessWidget {
           vertical: 20,
         ),
         onPressed: onPressed,
-        color: theme.colorScheme.onPrimary,
+        color: theme.colorScheme.primary,
         child: Text(
           text,
           style: theme.textTheme.bodyLarge!
