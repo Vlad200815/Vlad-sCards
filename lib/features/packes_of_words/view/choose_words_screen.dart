@@ -17,27 +17,28 @@ class ChooseWordsScreen extends StatefulWidget {
 class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
   List<Map<String, dynamic>> words = [];
 
-  List<Map<String, String>> know = [];
-  List<Map<String, String>> dontKnow = [];
+  List<Map<String, dynamic>> learn = [];
+  List<Map<String, dynamic>> knew = [];
   final talker = GetIt.I<Talker>();
   int loadedItems = 1;
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (loadedItems < words.length) {
-            setState(() {
-              loadedItems = loadedItems + 5;
-              talker.debug(loadedItems);
-            });
-          }
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     if (loadedItems < words.length) {
+      //       setState(() {
+      //         loadedItems = loadedItems + 5;
+      //         talker.debug(loadedItems);
+      //       });
+      //     }
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
       backgroundColor: theme.colorScheme.surface,
       body: BlocListener<EnglishWordsApiBloc, EnglishWordsApiState>(
         listener: (context, state) {
@@ -47,6 +48,52 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                 state.response.data["words"],
               );
             });
+          }
+          if (learn.isEmpty) {
+            learn.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
+            learn.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
+            learn.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
+          }
+          if (knew.isEmpty) {
+            knew.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
+            knew.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
+            knew.add(
+              {
+                "english": "add something",
+                "ukrainian": "",
+                "example": "",
+              },
+            );
           }
         },
         child: BlocBuilder<EnglishWordsApiBloc, EnglishWordsApiState>(
@@ -115,34 +162,21 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                       ),
                       Positioned(
                         top: 10,
-                        child: DragTarget<Map<String, String>>(
+                        child: DragTarget<Map<String, dynamic>>(
                           builder: (context, candidateData, rejectedData) {
                             return Draggable(
-                              data: words.first,
-                              feedback: Material(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: SideCard(
-                                    ukrainian: "ukranian",
-                                    example: "exaple",
-                                    english: "english",
-                                    imagePath: "assets/flash-card.png",
-                                    imageWidth: 35,
-                                    imageHeight: 35,
-                                    volumnButtonSize: 20,
-                                    topSizedBox: 30,
-                                    width:
-                                        MediaQuery.of(context).size.width - 140,
-                                    height: 160,
-                                  )),
-                              child: words.isEmpty
-                                  ? const SizedBox()
-                                  : Material(
+                              data: learn.last,
+                              childWhenDragging: learn.isNotEmpty
+                                  ? Material(
                                       borderRadius: BorderRadius.circular(15),
                                       child: SideCard(
-                                        ukrainian: "ukrianian",
-                                        example: "example",
+                                        ukrainian: learn[learn.length - 2]
+                                            ["ukrainian"],
+                                        example: learn[learn.length - 2]
+                                            ["example"],
+                                        english: learn[learn.length - 2]
+                                            ["english"],
                                         imagePath: "assets/flash-card.png",
-                                        english: words.first["english"]!,
                                         imageWidth: 35,
                                         imageHeight: 35,
                                         volumnButtonSize: 20,
@@ -152,18 +186,69 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                                 140,
                                         height: 160,
                                       ),
+                                    )
+                                  : const SizedBox(
+                                      child: Center(
+                                        child: Text(
+                                          "No words have been added yet",
+                                        ),
+                                      ),
                                     ),
+                              feedback: learn.isNotEmpty
+                                  ? Material(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: SideCard(
+                                        ukrainian: learn.last["ukrainian"],
+                                        example: learn.last["example"],
+                                        english: learn.last["english"],
+                                        imagePath: "assets/flash-card.png",
+                                        imageWidth: 35,
+                                        imageHeight: 35,
+                                        volumnButtonSize: 20,
+                                        topSizedBox: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                140,
+                                        height: 160,
+                                      ),
+                                    )
+                                  : const SizedBox(
+                                      child: Center(
+                                        child: Text(
+                                          "No words have been added yet",
+                                        ),
+                                      ),
+                                    ),
+                              child: learn.isNotEmpty
+                                  ? Material(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: SideCard(
+                                        ukrainian: learn.last["ukrainian"],
+                                        example: learn.last["example"],
+                                        english: learn.last["english"],
+                                        imagePath: "assets/flash-card.png",
+                                        imageWidth: 35,
+                                        imageHeight: 35,
+                                        volumnButtonSize: 20,
+                                        topSizedBox: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                140,
+                                        height: 160,
+                                      ),
+                                    )
+                                  : const SizedBox(),
                             );
                           },
                           onAcceptWithDetails: (card) {
                             setState(() {
-                              dontKnow.remove(card.data);
-                              know.add(card.data);
+                              knew.remove(card.data);
+                              learn.add(card.data);
                               words.remove(card.data);
 
-                              talker.debug("know: $know");
-                              talker.debug("dontKnow: $dontKnow");
-                              talker.debug("words: $words");
+                              talker.debug("learn: ------- $learn");
+                              talker.debug("knew: --------- $knew");
+                              // talker.debug("words: -------- $words");
                             });
                           },
                         ),
@@ -203,8 +288,8 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                   //MIDDLE CARD
                   const SizedBox(height: 35),
 
-                  Draggable(
-                    data: state.response.data['words'],
+                  Draggable<Map<String, dynamic>>(
+                    data: words.first,
                     childWhenDragging: Material(
                       child: words.length > 1
                           ? MiddleCard(
@@ -300,35 +385,59 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                       ),
                       Positioned(
                         top: 30,
-                        child: DragTarget<Map<String, String>>(
+                        child: DragTarget<Map<String, dynamic>>(
                           builder: (context, candidateData, rejectedData) {
                             return Draggable(
-                              data: words.first,
+                              data: knew.last,
+                              childWhenDragging: Material(
+                                borderRadius: BorderRadius.circular(15),
+                                child: knew.isNotEmpty
+                                    ? SideCard(
+                                        ukrainian: knew[knew.length - 2]
+                                            ['ukrainian'],
+                                        example: knew[knew.length - 2]
+                                            ['example'],
+                                        imagePath: "assets/flash-card.png",
+                                        english: knew[knew.length - 2]
+                                            ['english'],
+                                        imageWidth: 35,
+                                        imageHeight: 35,
+                                        volumnButtonSize: 20,
+                                        topSizedBox: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                140,
+                                        height: 160,
+                                      )
+                                    : const SizedBox(),
+                              ),
                               feedback: Material(
                                 borderRadius: BorderRadius.circular(15),
-                                child: SideCard(
-                                  ukrainian: "ukrianian",
-                                  example: "example",
-                                  imagePath: "assets/flash-card.png",
-                                  english: words.first["english"]!,
-                                  imageWidth: 35,
-                                  imageHeight: 35,
-                                  volumnButtonSize: 20,
-                                  topSizedBox: 30,
-                                  width:
-                                      MediaQuery.of(context).size.width - 140,
-                                  height: 160,
-                                ),
+                                child: knew.isNotEmpty
+                                    ? SideCard(
+                                        ukrainian: knew.last['ukrainian'],
+                                        example: knew.last['example'],
+                                        imagePath: "assets/flash-card.png",
+                                        english: knew.last['english'],
+                                        imageWidth: 35,
+                                        imageHeight: 35,
+                                        volumnButtonSize: 20,
+                                        topSizedBox: 30,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                140,
+                                        height: 160,
+                                      )
+                                    : const SizedBox(),
                               ),
-                              child: words.isEmpty
-                                  ? const SizedBox()
-                                  : Material(
+                              child: knew.isNotEmpty
+                                  ? Material(
                                       borderRadius: BorderRadius.circular(15),
                                       child: SideCard(
-                                        ukrainian: "ukrianian",
-                                        example: "example",
+                                        ukrainian: knew.last['ukrainian'],
+                                        example: knew.last['example'],
                                         imagePath: "assets/flash-card.png",
-                                        english: words.first["english"]!,
+                                        english: knew.last['english'],
                                         imageWidth: 35,
                                         imageHeight: 35,
                                         volumnButtonSize: 20,
@@ -338,18 +447,19 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                                 140,
                                         height: 160,
                                       ),
-                                    ),
+                                    )
+                                  : const SizedBox(),
                             );
                           },
                           onAcceptWithDetails: (card) {
                             setState(() {
-                              know.remove(card.data);
-                              dontKnow.add(card.data);
+                              learn.remove(card.data);
+                              knew.add(card.data);
                               words.remove(card.data);
 
-                              talker.debug("know: $know");
-                              talker.debug("dontKnow: $dontKnow");
-                              talker.debug("words: $words");
+                              talker.debug("learn: $learn");
+                              talker.debug("knew: $knew");
+                              // talker.debug("words: $words");
                             });
                           },
                         ),

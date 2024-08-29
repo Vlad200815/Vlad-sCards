@@ -61,12 +61,15 @@ class SideCard extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            example,
-            overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.bodySmall!.copyWith(
-              color: const Color.fromARGB(255, 94, 94, 94),
-              fontWeight: FontWeight.w500,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              example,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall!.copyWith(
+                color: const Color.fromARGB(255, 94, 94, 94),
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           const SizedBox(height: 5),

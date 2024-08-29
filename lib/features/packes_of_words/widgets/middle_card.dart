@@ -32,7 +32,6 @@ class MiddleCard extends StatelessWidget {
     List<Widget> cards = List.generate(
       loadedItems,
       (int index) {
-        index = 3;
         return Container(
           width: width,
           height: height,
@@ -65,12 +64,15 @@ class MiddleCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                words[index]['example'],
-                overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall!.copyWith(
-                  color: const Color.fromARGB(255, 94, 94, 94),
-                  fontWeight: FontWeight.w500,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  words[index]['example'],
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.bodySmall!.copyWith(
+                    color: const Color.fromARGB(255, 94, 94, 94),
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               const SizedBox(height: 5),
