@@ -7,4 +7,8 @@ abstract class EnglishWordsApiEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OnEnlishWordsApiEvent extends EnglishWordsApiEvent {}
+class OnEnglishWordsApiEvent extends EnglishWordsApiEvent {
+  final String level;
+
+  const OnEnglishWordsApiEvent({required this.level});
+}

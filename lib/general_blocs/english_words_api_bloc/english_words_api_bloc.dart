@@ -12,7 +12,7 @@ part 'english_words_api_state.dart';
 class EnglishWordsApiBloc
     extends Bloc<EnglishWordsApiEvent, EnglishWordsApiState> {
   EnglishWordsApiBloc() : super(EnglishWordsApiInitial()) {
-    on<OnEnlishWordsApiEvent>((event, emit) async {
+    on<OnEnglishWordsApiEvent>((event, emit) async {
       emit(EnglishWordsApiProgress());
       try {
         final dio = Dio(
@@ -23,8 +23,8 @@ class EnglishWordsApiBloc
           ),
         );
         dio.interceptors.add(TalkerDioLogger());
-        final Response response =
-            await dio.get("https://english-words-api-xq8o.onrender.com/words");
+        final Response response = await dio.get(
+            "https://english-words-api-xq8o.onrender.com/${event.level}_words");
         // print(response.body);
         emit(EnglishWordsApiSuccess(response: response));
       } catch (e, st) {

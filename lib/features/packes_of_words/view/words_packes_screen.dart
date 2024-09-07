@@ -72,11 +72,25 @@ class WordsPackesScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(4),
                   child: InkWell(
                     onTap: () {
+                      String level = '';
+                      if (index == 1) {
+                        level = 'a1';
+                      } else if (index == 2) {
+                        level = 'a2';
+                      } else if (index == 3) {
+                        level = "b1";
+                      } else if (index == 4) {
+                        level = "b2";
+                      } else {
+                        level = "c1";
+                      }
                       context
                           .read<EnglishWordsApiBloc>()
-                          .add(OnEnlishWordsApiEvent());
+                          .add(OnEnglishWordsApiEvent(level: level));
                       Navigator.pushNamed(
-                          context, '/packes_of_words_screen/choose_words');
+                        context,
+                        '/packes_of_words_screen/choose_words',
+                      );
                     },
                     child: Ink(
                       decoration: BoxDecoration(

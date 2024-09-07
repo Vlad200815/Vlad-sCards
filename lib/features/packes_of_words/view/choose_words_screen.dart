@@ -28,17 +28,6 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     if (loadedItems < words.length) {
-      //       setState(() {
-      //         loadedItems = loadedItems + 5;
-      //         talker.debug(loadedItems);
-      //       });
-      //     }
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
       backgroundColor: theme.colorScheme.surface,
       body: BlocListener<EnglishWordsApiBloc, EnglishWordsApiState>(
         listener: (context, state) {

@@ -28,7 +28,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   @override
   void initState() {
-    context.read<EnglishWordsApiBloc>().add(OnEnlishWordsApiEvent());
+    context.read<EnglishWordsApiBloc>().add(
+          const OnEnglishWordsApiEvent(level: "c1"),
+        );
     super.initState();
   }
 
@@ -201,7 +203,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       ],
                     ),
                     Text(
-                      cardsList[index]['ukrainian']!,
+                      cardsList[index]['ukrainian'] ?? 'N/A',
                       style: theme.textTheme.bodyMedium!.copyWith(
                         fontSize: 24,
                       ),
