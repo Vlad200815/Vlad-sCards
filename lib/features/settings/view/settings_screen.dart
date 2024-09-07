@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vlads_cards/features/settings/widgets/tile.dart';
+import 'package:vlads_cards/repositories/settings/settings.dart';
+import 'package:vlads_cards/repositories/settings/settings_repository.dart';
 
 import '../../../general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import '../../login/blocs/email_auth_bloc/email_auth_bloc.dart';
@@ -15,7 +17,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool themeSwitch = false;
   bool notificationsSwitch = true;
   bool analyticsSwitch = true;
 
@@ -30,6 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    bool themeSwitch = context.read<ThemeChangeCubit>().isDark();
     return Scaffold(
       body: CustomScrollView(
         slivers: [

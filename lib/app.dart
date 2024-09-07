@@ -7,6 +7,7 @@ import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_a
 import 'package:vlads_cards/general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/training/view/training_screen.dart';
+import 'package:vlads_cards/repositories/settings/settings_repository.dart';
 import 'package:vlads_cards/theme/theme.dart';
 import 'features/cards_list/view/cards_list_screen.dart';
 import 'features/home/view/view.dart';

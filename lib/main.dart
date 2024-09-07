@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/app.dart';
@@ -10,6 +11,7 @@ import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc
 import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/repositories/settings/settings_repository.dart';
 import 'general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import 'firebase_options.dart';
 
@@ -31,6 +33,8 @@ void main() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      final prefs = await SharedPreferences.getInstance();
+      final settingsRepository = SettingsRepository(preferences: prefs);
       runApp(
         MultiBlocProvider(
           providers: [
@@ -47,7 +51,8 @@ void main() async {
               create: (context) => EnglishWordsApiBloc(),
             ),
             BlocProvider(
-              create: (context) => ThemeChangeCubit(),
+              create: (context) =>
+                  ThemeChangeCubit(settingsRepository: settingsRepository),
             ),
           ],
           child: const MyApp(),
