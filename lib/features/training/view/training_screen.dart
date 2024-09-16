@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 
+import '../../../general_blocs/save_words_bloc/save_words_bloc.dart';
 import '../widgets/widgets.dart';
 
 class TrainingScreen extends StatefulWidget {
@@ -28,16 +29,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   @override
   void initState() {
-    context.read<EnglishWordsApiBloc>().add(
-          const OnEnglishWordsApiEvent(level: "c1"),
-        );
+    context.read<SaveWordsBloc>().add(OnGetLearnWords());
+
     super.initState();
   }
 
   Future<void> speak(String word) async {
     await flutterTts.setLanguage("en-US");
     await flutterTts.setVolume(1.0);
-    await flutterTts.setSpeechRate(0.7);
+    // await flutterTts.setSpeechRate(0.7);
     await flutterTts.speak(word);
   }
 
@@ -280,23 +280,44 @@ class _TrainingScreenState extends State<TrainingScreen> {
               ),
             ],
           ),
-          BlocListener<EnglishWordsApiBloc, EnglishWordsApiState>(
+          // BlocListener<EnglishWordsApiBloc, EnglishWordsApiState>(
+          //   listener: (context, state) {
+          //     if (state is EnglishWordsApiSuccess) {
+          //       setState(() {
+          //         cardsList = List<Map<String, dynamic>>.from(
+          //           state.response.data["words"],
+          //         );
+          //         cardKeys = List.generate(
+          //           cardsList.length,
+          //           (index) => GlobalKey<FlipCardState>(),
+          //         );
+          //       });
+          //     }
+          //   },
+
+          BlocListener<SaveWordsBloc, SaveWordsState>(
             listener: (context, state) {
-              if (state is EnglishWordsApiSuccess) {
+              if (state is GetLearnWordsSuccess) {
                 setState(() {
-                  cardsList = List<Map<String, dynamic>>.from(
-                    state.response.data["words"],
-                  );
-                  cardKeys = List.generate(
-                    cardsList.length,
-                    (index) => GlobalKey<FlipCardState>(),
-                  );
+                  cardsList = List<Map<String, dynamic>>.from(state.words);
                 });
+                cardKeys = List.generate(
+                  cardsList.length,
+                  (index) => GlobalKey<FlipCardState>(),
+                );
               }
             },
-            child: BlocBuilder<EnglishWordsApiBloc, EnglishWordsApiState>(
+            child: BlocBuilder<SaveWordsBloc, SaveWordsState>(
                 builder: (context, state) {
-              if (state is EnglishWordsApiSuccess) {
+              if (state is GetLearnWordsSuccess) {
+                if (cardsList.isEmpty) {
+                  return MaterialButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    },
+                    child: const Text("There are not cards to learn"),
+                  );
+                }
                 return Flexible(
                   child: CardSwiper(
                     isLoop: false,
@@ -313,6 +334,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           isRight = false;
                           isLeft = false;
                           know.add(currentIndex ?? 0);
+                          context
+                              .read<SaveWordsBloc>()
+                              .add(OnRemoveTrainingLearWords());
                         });
 
                         talker.debug("know: $know");

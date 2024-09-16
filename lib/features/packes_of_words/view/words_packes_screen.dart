@@ -88,9 +88,8 @@ class WordsPackesScreen extends StatelessWidget {
                           .read<EnglishWordsApiBloc>()
                           .add(OnEnglishWordsApiEvent(level: level));
                       Navigator.pushNamed(
-                        context,
-                        '/packes_of_words_screen/choose_words',
-                      );
+                          context, '/packes_of_words_screen/choose_words',
+                          arguments: level);
                     },
                     child: Ink(
                       decoration: BoxDecoration(

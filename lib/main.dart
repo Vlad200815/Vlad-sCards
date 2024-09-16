@@ -11,6 +11,8 @@ import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc
 import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/general_blocs/save_words_bloc/save_words_bloc.dart';
+import 'package:vlads_cards/repositories/save_words/save_words.dart';
 import 'package:vlads_cards/repositories/settings/settings_repository.dart';
 import 'general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import 'firebase_options.dart';
@@ -35,6 +37,7 @@ void main() async {
       );
       final prefs = await SharedPreferences.getInstance();
       final settingsRepository = SettingsRepository(preferences: prefs);
+      final saveWordsRepository = SaveWordsRepository(preferences: prefs);
       runApp(
         MultiBlocProvider(
           providers: [
@@ -51,8 +54,14 @@ void main() async {
               create: (context) => EnglishWordsApiBloc(),
             ),
             BlocProvider(
-              create: (context) =>
-                  ThemeChangeCubit(settingsRepository: settingsRepository),
+              create: (context) => ThemeChangeCubit(
+                settingsRepository: settingsRepository,
+              ),
+            ),
+            BlocProvider(
+              create: (context) => SaveWordsBloc(
+                saveWordsRepository: saveWordsRepository,
+              ),
             ),
           ],
           child: const MyApp(),
