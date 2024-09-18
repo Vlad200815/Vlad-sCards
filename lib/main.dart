@@ -36,6 +36,7 @@ void main() async {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       final prefs = await SharedPreferences.getInstance();
+      // await prefs.clear(); //delete this line if you do not need it anymore!
       final settingsRepository = SettingsRepository(preferences: prefs);
       final saveWordsRepository = SaveWordsRepository(preferences: prefs);
       runApp(

@@ -311,11 +311,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 builder: (context, state) {
               if (state is GetLearnWordsSuccess) {
                 if (cardsList.isEmpty) {
-                  return MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    child: const Text("There are not cards to learn"),
+                  return Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height / 8),
+                      const Text(
+                        "There are not cards to learn",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      Image.asset("assets/cat.webp")
+                    ],
                   );
                 }
                 return Flexible(
@@ -339,7 +343,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                               .add(OnRemoveTrainingLearWords());
                         });
 
-                        talker.debug("know: $know");
+                        // talker.debug("know: $know");
                       } else if (direction.name == 'left') {
                         setState(() {
                           isRight = false;
@@ -347,7 +351,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           dontKnow.add(currentIndex ?? 0);
                         });
 
-                        talker.debug("dontKnow $dontKnow");
+                        // talker.debug("dontKnow $dontKnow");
                       }
 
                       return true;
@@ -356,11 +360,11 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         (horizontalDirection, verticalDivider) {
                       // talker.debug(horizontalDirection);
                       if (horizontalDirection == CardSwiperDirection.right) {
-                        talker.debug(CardSwiperDirection.right);
+                        // talker.debug(CardSwiperDirection.right);
                         setState(() {
                           isRight = true;
                           isLeft = false;
-                          talker.debug(CardSide.BACK);
+                          // talker.debug(CardSide.BACK);
                         });
                       } else if (horizontalDirection ==
                           CardSwiperDirection.left) {

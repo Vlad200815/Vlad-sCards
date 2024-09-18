@@ -98,8 +98,9 @@ flutter:
     - assets/flash-card.png
     - assets/flash-card-2.png
     - assets/settings.png
-    - assets/giphy.webp
+    
     - assets/200.webp
+    - assets/cat.webp
     - assets/icons/airplane.png
     - assets/icons/bag.png
     - assets/icons/burger.png

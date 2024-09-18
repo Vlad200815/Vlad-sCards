@@ -21,6 +21,7 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
     storageLearn.add(listMap);
     try {
       String jsonString = jsonEncode(storageLearn);
+      GetIt.I<Talker>().debug("the saveLearnWords: $jsonString");
       await preferences.setString(_saveLearnWords, jsonString);
     } catch (e, st) {
       GetIt.I<Talker>().handle(e, st);
@@ -32,6 +33,7 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
     storageKnew.add(listMap);
     try {
       String jsonString = jsonEncode(storageKnew);
+      GetIt.I<Talker>().debug("the saveKnewWords: $jsonString");
       await preferences.setString(_saveKnewWords, jsonString);
     } catch (e, st) {
       GetIt.I<Talker>().handle(e, st);
@@ -79,11 +81,20 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   @override
   Future<void> removeLearnWord(Map<String, dynamic> word) async {
     try {
+      //TODO: DO SOMETHING WITH THIS THING BELOW
+      if (storageLearn.isNotEmpty) {
+        storageLearn.removeAt(storageLearn.length - 1);
+        // GetIt.I<Talker>().debug("remove from the learn storage $storageLearn");
+      }
+
       String? jsonString = preferences.getString(_saveLearnWords);
       if (jsonString != null) {
         List<dynamic> myList = jsonDecode(jsonString);
         if (myList.isNotEmpty) {
-          myList.remove(word);
+          // GetIt.I<Talker>().debug("Before the removeLearnWords: $myList");
+          myList.removeAt(myList.length - 1);
+          // GetIt.I<Talker>().debug("After the removeLearnWords: $myList");
+
           String updatedJsonString = jsonEncode(myList);
           await preferences.setString(_saveLearnWords, updatedJsonString);
         }
@@ -95,17 +106,25 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
 
   @override
   Future<void> removeKnewWord(Map<String, dynamic> word) async {
-    //TODO: fix this function it does not want to remove cards properly
     try {
+      GetIt.I<Talker>().debug("the knew storage----> $storageLearn");
+      //TODO: DO SOMETHING WITH THIS THING BELOW
+      if (storageKnew.isNotEmpty) {
+        storageKnew.removeAt(storageKnew.length - 1);
+        GetIt.I<Talker>()
+            .debug("remove from the knew storage----> $storageLearn");
+      }
+
       String? jsonString = preferences.getString(_saveKnewWords);
       if (jsonString != null) {
         List<dynamic> myList = jsonDecode(jsonString);
         if (myList.isNotEmpty) {
           GetIt.I<Talker>().debug("Before the removeKnewWords: $myList");
-          myList.remove(word);
-          GetIt.I<Talker>().debug("After the removeKnewWords: $myList");
+          myList.removeAt(myList.length - 1);
 
           String updatedJsonString = jsonEncode(myList);
+          GetIt.I<Talker>()
+              .debug("After the removeKnewWords: $updatedJsonString");
           await preferences.setString(_saveKnewWords, updatedJsonString);
         }
       }
@@ -118,6 +137,9 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   Future<void> removeLearn() async {
     try {
       String? jsonString = preferences.getString(_saveLearnWords);
+      GetIt.I<Talker>()
+          .debug("remove from training the jsonString: $jsonString");
+
       if (jsonString != null) {
         List<dynamic> myList = jsonDecode(jsonString);
         if (myList.isNotEmpty) {
