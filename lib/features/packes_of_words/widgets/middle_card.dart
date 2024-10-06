@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
+import 'package:vlads_cards/general_functions/tts.dart';
 
 class MiddleCard extends StatelessWidget {
   const MiddleCard({
@@ -47,7 +50,9 @@ class MiddleCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await speak(words[index]['english']);
+                    },
                     child: Icon(
                       Icons.volume_up_outlined,
                       color: theme.colorScheme.primary,
@@ -85,8 +90,23 @@ class MiddleCard extends StatelessWidget {
                       SizedBox(
                         width: imageWidth,
                         height: imageHeight,
-                        child: Image.asset(
-                          imagePath,
+                        child: BlocBuilder<ImageSearchApiBloc,
+                            ImageSearchApiState>(
+                          builder: (context, state) {
+                            if (state is ImageSearchApiSuccess) {
+                              return Image.network(
+                                state.url,
+                              );
+                            } else if (state is ImageSearchApiProgress) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return Image.asset(
+                                "assets/flash-card.png",
+                              );
+                            }
+                          },
                         ),
                       ),
                       Text(

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:translator/translator.dart';
+import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
+import 'package:vlads_cards/general_blocs/save_words_bloc/save_words_bloc.dart';
 import '../../../widgets/widgets.dart';
 import '../widgets/widgets.dart';
 
@@ -20,17 +25,6 @@ class _AddNewWordScreenState extends State<AddNewWordScreen> {
 
   final translator = GoogleTranslator();
 
-  List<String> icons = [
-    'airplane',
-    'bag',
-    'burger',
-    'home',
-    'pawprint',
-    'ticket',
-  ];
-
-  String selectedIcon = '';
-
   @override
   void dispose() {
     englishEditingController.dispose();
@@ -49,16 +43,34 @@ class _AddNewWordScreenState extends State<AddNewWordScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.add_a_photo_outlined,
-                  color: Colors.grey,
-                  size: 80,
+            const SizedBox(height: 30),
+            Center(
+              child: Text(
+                "Add WORDS",
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
+            ),
+            BlocBuilder<ImageSearchApiBloc, ImageSearchApiState>(
+              builder: (context, state) {
+                if (state is ImageSearchApiSuccess) {
+                  return SizedBox(
+                    height: 200,
+                    width: 300,
+                    child: Image.network(state.url),
+                  );
+                } else if (state is ImageSearchApiProgress) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return SizedBox(
+                    height: 200,
+                    width: 300,
+                    child: Image.asset("assets/flash-card.png"),
+                  );
+                }
+              },
             ),
             WordInput(
               enabled: true,
@@ -73,6 +85,8 @@ class _AddNewWordScreenState extends State<AddNewWordScreen> {
                   setState(() {
                     ukrainianEditingController.text = translation.text;
                   });
+                  context.read<ImageSearchApiBloc>().add(
+                      OnSearchImageEvent(query: englishEditingController.text));
                 } catch (e) {
                   debugPrint(e.toString());
                 }
@@ -97,7 +111,20 @@ class _AddNewWordScreenState extends State<AddNewWordScreen> {
               horizontal: 140,
               text: "Save",
               onPressed: () async {
-                //saves data to database for the current user
+                //saves data to preferences for the current added word
+                context.read<SaveWordsBloc>().add(
+                      OnSaveLearnWords(
+                        listMap: {
+                          "english": englishEditingController.text,
+                          "ukrainian": ukrainianEditingController.text,
+                          "example": exampleEditingController.text,
+                          "repetition": 0
+                        },
+                      ),
+                    );
+                GetIt.I<Talker>().debug(
+                    "english: ${englishEditingController.text}, ukrainian: ${ukrainianEditingController.text}, example: ${exampleEditingController.text}");
+                Navigator.pop(context);
               },
             ),
           ],

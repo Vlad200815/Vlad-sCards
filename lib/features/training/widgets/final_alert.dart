@@ -22,7 +22,10 @@ class FinalAlert extends StatelessWidget {
           child: CupertinoButton(
             child: Text(finalMessage),
             onPressed: () {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(
+                context,
+                '/home',
+              );
             },
           ),
         ),

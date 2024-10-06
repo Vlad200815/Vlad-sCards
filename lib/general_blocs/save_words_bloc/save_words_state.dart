@@ -36,10 +36,14 @@ final class GetKnewWordsSuccess extends SaveWordsState {
   List<Object> get props => [words];
 }
 
+final class RemoveTrainingLearWordsAgain extends SaveWordsState {
+  final List<Map<String, dynamic>> words;
 
+  const RemoveTrainingLearWordsAgain({required this.words});
 
-
-
+  @override
+  List<Object> get props => [words];
+}
 
 // final class GetWordsSuccess extends SaveWordsState {
 //   final List<Map<String, dynamic>> words;

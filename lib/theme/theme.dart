@@ -19,6 +19,7 @@ final lightTheme = ThemeData(
     inversePrimary: Colors.black,
     onSecondary: const Color.fromARGB(255, 200, 234, 255),
     onTertiary: Colors.white,
+    onTertiaryFixed: Colors.black,
     // onPrimaryContainer: Colors.grey.shade100,
     brightness: Brightness.light,
   ),
@@ -41,6 +42,7 @@ final darkTheme = ThemeData(
     inversePrimary: Colors.white,
     onSecondary: const Color.fromARGB(255, 38, 41, 43),
     onTertiary: const Color.fromARGB(255, 38, 41, 43),
+    onTertiaryFixed: Colors.black,
     brightness: Brightness.dark,
   ),
 );

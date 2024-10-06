@@ -56,7 +56,7 @@ class SaveWordsBloc extends Bloc<SaveWordsEvent, SaveWordsState> {
 
     on<OnRemoveLearWords>((event, emit) async {
       try {
-        await _saveWordsRepository.removeLearnWord(event.word);
+        await _saveWordsRepository.removeLearnWord();
       } catch (e, st) {
         GetIt.I<Talker>().handle(e, st);
       }
@@ -64,7 +64,7 @@ class SaveWordsBloc extends Bloc<SaveWordsEvent, SaveWordsState> {
 
     on<OnRemoveKnewWords>((event, emit) async {
       try {
-        await _saveWordsRepository.removeKnewWord(event.word);
+        await _saveWordsRepository.removeKnewWord();
       } catch (e, st) {
         GetIt.I<Talker>().handle(e, st);
       }
@@ -73,35 +73,12 @@ class SaveWordsBloc extends Bloc<SaveWordsEvent, SaveWordsState> {
     on<OnRemoveTrainingLearWords>((event, emit) async {
       try {
         await _saveWordsRepository.removeLearn();
+        // final updatedWords = await _saveWordsRepository.getLearnWords();
+        // GetIt.I<Talker>().debug("NNN $updatedWords");
+        // emit(GetLearnWordsSuccess(words: updatedWords));
       } catch (e, st) {
         GetIt.I<Talker>().handle(e, st);
       }
     });
-
-    // method for savign known words from shared prefs
-    // on<OnKnowSaveWords>((event, emit) {
-    //   emit(SaveWordsProgress());
-    //   try {
-    //     _saveWordsRepository.saveKnowWords(event.knowlistMap);
-    //     emit(SaveWordsSuccess());
-    //   } catch (e, st) {
-    //     emit(SaveWordsFailure());
-    //     GetIt.I<Talker>().handle(e, st);
-    //   }
-    // });
-    // for saving knew cards in choose_words.dart screen
-
-    // method for getting known words from shared prefs
-    // on<OnGetKnowWords>((event, emit) async {
-    //   emit(GetWordsProgress());
-    //   try {
-    //     final List<Map<String, dynamic>> words =
-    //         await _saveWordsRepository.getKnowWords();
-    //     emit(GetWordsSuccess(words: words));
-    //   } catch (e, st) {
-    //     emit(GetWordsFailure());
-    //     GetIt.I<Talker>().handle(e, st);
-    //   }
-    // });
   }
 }

@@ -74,3 +74,10 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // Existing dependencies...
+    
+    // The WorkManager dependency
+    implementation "androidx.work:work-runtime:2.7.0" // Use the latest version
+}

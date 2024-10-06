@@ -32,6 +32,8 @@ class WordInput extends StatelessWidget {
         child: Align(
           alignment: Alignment.bottomCenter,
           child: TextField(
+            onSubmitted: (value) => FocusScope.of(context).unfocus(),
+            style: const TextStyle(color: Colors.black),
             enableSuggestions: true,
             enabled: enabled,
             autocorrect: true,
@@ -39,8 +41,8 @@ class WordInput extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               hintText: hintText,
-              // hintStyle: TextStyle(color: theme.colorScheme.onPrimary),
-              fillColor: theme.colorScheme.onPrimary,
+              hintStyle: TextStyle(color: theme.colorScheme.onTertiaryFixed),
+              fillColor: theme.colorScheme.onTertiaryFixed,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             ),
           ),

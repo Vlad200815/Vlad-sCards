@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -11,14 +12,49 @@ import 'package:vlads_cards/features/login/blocs/email_auth_bloc/email_auth_bloc
 import 'package:vlads_cards/features/login/blocs/facebook_auth_bloc/facebook_auth_bloc.dart';
 import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bloc.dart';
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
+import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
 import 'package:vlads_cards/general_blocs/save_words_bloc/save_words_bloc.dart';
 import 'package:vlads_cards/repositories/save_words/save_words.dart';
 import 'package:vlads_cards/repositories/settings/settings_repository.dart';
+import 'package:workmanager/workmanager.dart';
 import 'general_blocs/theme_change_cubit/theme_change_cubit.dart';
 import 'firebase_options.dart';
 
+@pragma('vm:entry-point')
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    if (task == "reAddRemovedItem" && inputData != null) {
+      var removedItem = jsonDecode(inputData['removedItem']);
+      var saveLearnWordsKey = inputData['saveLearnWordsKey'];
+
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? jsonString = preferences.getString(saveLearnWordsKey);
+
+      if (jsonString != null) {
+        List<dynamic> myList = jsonDecode(jsonString);
+        debugPrint("before add: $myList");
+        myList.add(removedItem);
+        debugPrint("after add: $myList");
+        String updatedJsonString = jsonEncode(myList);
+        debugPrint("after jsonEncode: $updatedJsonString");
+        await preferences.setString(saveLearnWordsKey, updatedJsonString);
+
+        String? test = preferences.getString(saveLearnWordsKey);
+        if (test != null) {
+          List<dynamic> jsonData = jsonDecode(test);
+          List<Map<String, dynamic>> data =
+              jsonData.cast<Map<String, dynamic>>();
+          debugPrint("test: ---- $data");
+        }
+      }
+    }
+    return Future.value(true);
+  });
+}
+
 void main() async {
   final talker = TalkerFlutter.init();
+
   GetIt.I.registerSingleton(talker);
   GetIt.I<Talker>().debug('Talker started...');
   // await DatabaseService().deleteExistingDatabase();
@@ -39,6 +75,9 @@ void main() async {
       // await prefs.clear(); //delete this line if you do not need it anymore!
       final settingsRepository = SettingsRepository(preferences: prefs);
       final saveWordsRepository = SaveWordsRepository(preferences: prefs);
+
+      Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
       runApp(
         MultiBlocProvider(
           providers: [
@@ -63,6 +102,9 @@ void main() async {
               create: (context) => SaveWordsBloc(
                 saveWordsRepository: saveWordsRepository,
               ),
+            ),
+            BlocProvider(
+              create: (context) => ImageSearchApiBloc(),
             ),
           ],
           child: const MyApp(),

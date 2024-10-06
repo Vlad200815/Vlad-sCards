@@ -3,11 +3,10 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
-
+import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
+import 'package:vlads_cards/general_functions/generall_functions.dart';
 import '../../../general_blocs/save_words_bloc/save_words_bloc.dart';
 import '../widgets/widgets.dart';
 
@@ -21,29 +20,35 @@ class TrainingScreen extends StatefulWidget {
 class _TrainingScreenState extends State<TrainingScreen> {
   List<GlobalKey<FlipCardState>> cardKeys = [];
   List<Map<String, dynamic>> cardsList = [];
+  List<String> query = [];
+  List<String> readded = [];
+
+  int added = 0;
+
   bool isRight = false;
   bool isLeft = false;
 
   final Talker talker = GetIt.I<Talker>();
-  final FlutterTts flutterTts = FlutterTts();
 
   @override
   void initState() {
     context.read<SaveWordsBloc>().add(OnGetLearnWords());
-
     super.initState();
-  }
-
-  Future<void> speak(String word) async {
-    await flutterTts.setLanguage("en-US");
-    await flutterTts.setVolume(1.0);
-    // await flutterTts.setSpeechRate(0.7);
-    await flutterTts.speak(word);
   }
 
   void resetCard(int index) {
     if (cardKeys[index].currentState != null && index < cardKeys.length) {
       cardKeys[index].currentState?.controller?.reset();
+    }
+  }
+
+  int cardsExistingLength(int cardsIndex) {
+    if (cardsIndex == 2) {
+      return 2;
+    } else if (cardsIndex == 1) {
+      return 1;
+    } else {
+      return 3;
     }
   }
 
@@ -54,6 +59,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
     List<Widget> cards = List.generate(
       cardsList.length,
       (int index) {
+        query.add(cardsList[index]['english']);
+
+        GetIt.I<Talker>().debug("query: $query");
         return FlipCard(
           key: cardKeys[index],
           fill: Fill
@@ -98,13 +106,36 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 3.8),
+                SizedBox(height: MediaQuery.of(context).size.height / 4),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/flash-card.png',
-                      scale: 4,
+                    BlocBuilder<ImageSearchApiBloc, ImageSearchApiState>(
+                      builder: (context, state) {
+                        if (state is ImageSearchApiSuccess) {
+                          return SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: Image.network(
+                              state.url,
+                              scale: 4,
+                            ),
+                          );
+                        } else if (state is ImageSearchApiProgress) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: Image.asset(
+                              'assets/flash-card.png',
+                              scale: 4,
+                            ),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -170,14 +201,37 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 5),
+                SizedBox(height: MediaQuery.of(context).size.height / 7),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/flash-card.png',
-                      scale: 4,
+                    BlocBuilder<ImageSearchApiBloc, ImageSearchApiState>(
+                      builder: (context, state) {
+                        if (state is ImageSearchApiSuccess) {
+                          return SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: Image.network(
+                              state.url,
+                              scale: 4,
+                            ),
+                          );
+                        } else if (state is ImageSearchApiProgress) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: Image.asset(
+                              'assets/flash-card.png',
+                              scale: 4,
+                            ),
+                          );
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
                     Row(
@@ -186,7 +240,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         IconButton(
                           icon: Icon(
                             Icons.volume_up_outlined,
-                            color: theme.colorScheme.onPrimary,
+                            color: theme.colorScheme.primary,
                             size: 24,
                           ),
                           onPressed: () async {
@@ -252,8 +306,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
       },
     );
     //END OF LIST VAR
-    List<int> know = [];
-    List<int> dontKnow = [];
+
     //All Screen
     return Scaffold(
       backgroundColor: theme.colorScheme.onPrimaryFixed,
@@ -280,27 +333,17 @@ class _TrainingScreenState extends State<TrainingScreen> {
               ),
             ],
           ),
-          // BlocListener<EnglishWordsApiBloc, EnglishWordsApiState>(
-          //   listener: (context, state) {
-          //     if (state is EnglishWordsApiSuccess) {
-          //       setState(() {
-          //         cardsList = List<Map<String, dynamic>>.from(
-          //           state.response.data["words"],
-          //         );
-          //         cardKeys = List.generate(
-          //           cardsList.length,
-          //           (index) => GlobalKey<FlipCardState>(),
-          //         );
-          //       });
-          //     }
-          //   },
-
           BlocListener<SaveWordsBloc, SaveWordsState>(
-            listener: (context, state) {
+            listener: (context, state) async {
               if (state is GetLearnWordsSuccess) {
                 setState(() {
                   cardsList = List<Map<String, dynamic>>.from(state.words);
                 });
+                if (cardsList.isNotEmpty) {
+                  context.read<ImageSearchApiBloc>().add(
+                      OnSearchImageEvent(query: cardsList.first['english']));
+                }
+
                 cardKeys = List.generate(
                   cardsList.length,
                   (index) => GlobalKey<FlipCardState>(),
@@ -308,115 +351,147 @@ class _TrainingScreenState extends State<TrainingScreen> {
               }
             },
             child: BlocBuilder<SaveWordsBloc, SaveWordsState>(
-                builder: (context, state) {
-              if (state is GetLearnWordsSuccess) {
-                if (cardsList.isEmpty) {
-                  return Column(
-                    children: [
-                      SizedBox(height: MediaQuery.of(context).size.height / 8),
-                      const Text(
-                        "There are not cards to learn",
-                        style: TextStyle(fontSize: 25),
+              builder: (context, state) {
+                if (state is GetLearnWordsSuccess) {
+                  if (cardsList.isEmpty) {
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 8,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "There are not cards to learn",
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              Image.asset("assets/cat.webp")
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return Flexible(
+                    child: CardSwiper(
+                      isLoop: false,
+                      numberOfCardsDisplayed:
+                          cardsExistingLength(cardsList.length),
+                      cardsCount: cardsList.length,
+                      cardBuilder: (context, index, percentThresholdX,
+                          percentThresholdY) {
+                        return cards[index];
+                      },
+                      onSwipe: (previousIndex, currentIndex, direction) {
+                        resetCard(previousIndex);
+                        if (direction.name == 'right') {
+                          setState(() {
+                            isRight = false;
+                            isLeft = false;
+
+                            context
+                                .read<SaveWordsBloc>()
+                                .add(OnRemoveTrainingLearWords());
+                            if (currentIndex != null) {
+                              added++;
+                              context
+                                  .read<ImageSearchApiBloc>()
+                                  .add(OnSearchImageEvent(query: query[added]));
+                            }
+                          });
+                        } else if (direction.name == 'left') {
+                          setState(() {
+                            isRight = false;
+                            isLeft = false;
+
+                            cardsList.add(cardsList[previousIndex]);
+                            cardKeys.add(GlobalKey<FlipCardState>());
+
+                            GetIt.I<Talker>().debug(
+                                "cardsList.previouseIndex ${cardsList[previousIndex]}");
+
+                            if (currentIndex != null) {
+                              readded.add(cardsList[currentIndex]['english']);
+                              GetIt.I<Talker>().debug("readded: $readded");
+                              added++;
+                              context
+                                  .read<ImageSearchApiBloc>()
+                                  .add(OnSearchImageEvent(query: query[added]));
+                            } else if (currentIndex == null) {
+                              added = 0;
+                              // context.read<ImageSearchApiBloc>().add(
+                              //     OnSearchImageEvent(query: readded[added]));
+                            }
+                          });
+                        }
+                        return true;
+                      },
+                      onSwipeDirectionChange:
+                          (horizontalDirection, verticalDivider) {
+                        if (horizontalDirection == CardSwiperDirection.right) {
+                          GetIt.I<Talker>().warning("Right");
+                          setState(() {
+                            isRight = true;
+                            isLeft = false;
+                          });
+                        } else if (horizontalDirection ==
+                            CardSwiperDirection.left) {
+                          GetIt.I<Talker>().warning("Left");
+
+                          setState(() {
+                            isLeft = true;
+                            isRight = false;
+                          });
+                        } else {
+                          setState(() {
+                            isLeft = false;
+                            isRight = false;
+                          });
+                        }
+                      },
+                      allowedSwipeDirection: const AllowedSwipeDirection.only(
+                        left: true,
+                        right: true,
+                        up: false,
+                        down: false,
                       ),
-                      Image.asset("assets/cat.webp")
-                    ],
-                  );
-                }
-                return Flexible(
-                  child: CardSwiper(
-                    isLoop: false,
-                    numberOfCardsDisplayed: 1,
-                    cardsCount: cardsList.length,
-                    cardBuilder:
-                        (context, index, percentThresholdX, percentThresholdY) {
-                      return cards[index];
-                    },
-                    onSwipe: (previousIndex, currentIndex, direction) {
-                      resetCard(previousIndex);
-                      if (direction.name == 'right') {
-                        setState(() {
-                          isRight = false;
-                          isLeft = false;
-                          know.add(currentIndex ?? 0);
-                          context
-                              .read<SaveWordsBloc>()
-                              .add(OnRemoveTrainingLearWords());
-                        });
-
-                        // talker.debug("know: $know");
-                      } else if (direction.name == 'left') {
-                        setState(() {
-                          isRight = false;
-                          isLeft = false;
-                          dontKnow.add(currentIndex ?? 0);
-                        });
-
-                        // talker.debug("dontKnow $dontKnow");
-                      }
-
-                      return true;
-                    },
-                    onSwipeDirectionChange:
-                        (horizontalDirection, verticalDivider) {
-                      // talker.debug(horizontalDirection);
-                      if (horizontalDirection == CardSwiperDirection.right) {
-                        // talker.debug(CardSwiperDirection.right);
-                        setState(() {
-                          isRight = true;
-                          isLeft = false;
-                          // talker.debug(CardSide.BACK);
-                        });
-                      } else if (horizontalDirection ==
-                          CardSwiperDirection.left) {
-                        setState(() {
-                          isLeft = true;
-                          isRight = false;
-                        });
-                      } else {
-                        setState(() {
-                          isLeft = false;
-                          isRight = false;
-                        });
-                      }
-                    },
-                    allowedSwipeDirection: const AllowedSwipeDirection.only(
-                      left: true,
-                      right: true,
-                      up: false,
-                      down: false,
+                      maxAngle: 90,
+                      onEnd: () {
+                        query.clear();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const FinalAlert(
+                              title: "Well done, keep moving",
+                              content: Text(
+                                  "Another porshen of cards will be ready in just a few minuts"),
+                              finalMessage: "Yes Sir!",
+                            );
+                          },
+                        );
+                      },
                     ),
-                    maxAngle: 90,
-                    onEnd: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const FinalAlert(
-                            title: "Well done, keep moving",
-                            content: Text(
-                                "Another porshen of cards will be ready in just a few minuts"),
-                            finalMessage: "Yes Sir!",
-                          );
-                        },
-                      );
-                    },
-                  ),
-                );
-              } else if (state is EnglishWordsApiProgress) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height / 2.3),
-                      const CircularProgressIndicator(),
-                    ],
-                  ),
-                );
-              } else {
-                return const Center(child: Text("Something went wrong..."));
-              }
-            }),
+                  );
+                } else if (state is GetLearnWordsProgress) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height / 2.3),
+                        const CircularProgressIndicator(),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(child: Text("Something went wrong..."));
+                }
+              },
+            ),
           ),
         ],
       ),

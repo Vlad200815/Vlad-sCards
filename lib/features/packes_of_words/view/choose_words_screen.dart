@@ -6,6 +6,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/features/packes_of_words/packes_of_words.dart';
 import 'package:vlads_cards/features/packes_of_words/widgets/side_card.dart';
+import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
 import 'package:vlads_cards/general_blocs/save_words_bloc/save_words_bloc.dart';
 
 class ChooseWordsScreen extends StatefulWidget {
@@ -16,11 +17,12 @@ class ChooseWordsScreen extends StatefulWidget {
 }
 
 class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
-  List<Map<String, dynamic>> words = [];
+  final talker = GetIt.I<Talker>();
 
+  List<Map<String, dynamic>> words = [];
   List<Map<String, dynamic>> learnWords = [];
   List<Map<String, dynamic>> knewWords = [];
-  final talker = GetIt.I<Talker>();
+
   int loadedItems = 1;
   int selectedIndex = 0;
 
@@ -29,6 +31,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
     final theme = Theme.of(context);
     String level = ModalRoute.of(context)?.settings.arguments as String;
     level = level.toUpperCase();
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       body: BlocListener<SaveWordsBloc, SaveWordsState>(
@@ -44,6 +47,7 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                 words = List<Map<String, dynamic>>.from(
                   state.response.data["words"],
                 );
+                talker.warning("words: $words");
               });
 
               if (learnWords.isEmpty) {
@@ -97,6 +101,12 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
           child: BlocBuilder<EnglishWordsApiBloc, EnglishWordsApiState>(
             builder: (context, state) {
               if (state is EnglishWordsApiSuccess) {
+                context.read<ImageSearchApiBloc>().add(
+                      OnSearchImageEvent(
+                        query: words[0]['english'],
+                      ),
+                    );
+
                 return Column(
                   children: [
                     Container(
@@ -177,11 +187,9 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                           english:
                                               learnWords[learnWords.length - 2]
                                                   ["english"],
-                                          imagePath: "assets/flash-card.png",
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -204,11 +212,9 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                               learnWords.last["ukrainian"],
                                           example: learnWords.last["example"],
                                           english: learnWords.last["english"],
-                                          imagePath: "assets/flash-card.png",
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -231,11 +237,9 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                               learnWords.last["ukrainian"],
                                           example: learnWords.last["example"],
                                           english: learnWords.last["english"],
-                                          imagePath: "assets/flash-card.png",
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -249,21 +253,18 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                             onAcceptWithDetails: (card) {
                               setState(() {
                                 knewWords.remove(card.data);
-                                ///////////
                                 context
                                     .read<SaveWordsBloc>()
-                                    .add(OnRemoveKnewWords(word: card.data));
-                                //////////
+                                    .add(OnRemoveKnewWords());
                                 learnWords.add(card.data);
+
                                 context
                                     .read<SaveWordsBloc>()
                                     .add(OnSaveLearnWords(listMap: card.data));
                                 words.remove(card.data);
-
-                                // talker.debug("learn: ------- $learn");
-                                // talker.debug("knew: --------- $knew");
-                                // talker.debug("words: -------- $words");
                               });
+                              GetIt.I<Talker>()
+                                  .warning("learnWords: $learnWords");
                             },
                           ),
                         ),
@@ -413,14 +414,12 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                           example:
                                               knewWords[knewWords.length - 2]
                                                   ['example'],
-                                          imagePath: "assets/flash-card.png",
                                           english:
                                               knewWords[knewWords.length - 2]
                                                   ['english'],
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -436,12 +435,10 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                           ukrainian:
                                               knewWords.last['ukrainian'],
                                           example: knewWords.last['example'],
-                                          imagePath: "assets/flash-card.png",
                                           english: knewWords.last['english'],
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -457,12 +454,10 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                           ukrainian:
                                               knewWords.last['ukrainian'],
                                           example: knewWords.last['example'],
-                                          imagePath: "assets/flash-card.png",
                                           english: knewWords.last['english'],
                                           imageWidth: 35,
                                           imageHeight: 35,
                                           volumnButtonSize: 20,
-                                          topSizedBox: 30,
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width -
@@ -476,24 +471,17 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                             onAcceptWithDetails: (card) {
                               setState(() {
                                 learnWords.remove(card.data);
-                                //////////////////
                                 context
                                     .read<SaveWordsBloc>()
-                                    .add(OnRemoveLearWords(card.data));
+                                    .add(OnRemoveLearWords());
                                 knewWords.add(card.data);
-                                ////////////////////
                                 context
                                     .read<SaveWordsBloc>()
                                     .add(OnSaveKnewWords(listMap: card.data));
                                 GetIt.I<Talker>()
                                     .debug("Result == ${card.data}");
-                                // knew.add(card.data);
-                                // context
-                                //     .read<SaveWordsBloc>()
-                                //     .add(OnKnowSaveWords(knowlistMap: card.data));
+
                                 words.remove(card.data);
-                                // talker.debug("know: $");
-                                // talker.debug("knew: $knew");
                               });
                             },
                           ),
@@ -505,7 +493,18 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
               } else if (state is EnglishWordsApiSuccess) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                return const Center(child: Text("Something went wrong..."));
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Wait a bit",
+                        style: TextStyle(fontSize: 25),
+                      ),
+                      Image.asset("assets/man.webp"),
+                    ],
+                  ),
+                );
               }
             },
           ),

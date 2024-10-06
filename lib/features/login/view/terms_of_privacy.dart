@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ForgotPswdScreen extends StatelessWidget {
-  const ForgotPswdScreen({super.key});
+class TermsOfPrivacyScreen extends StatelessWidget {
+  const TermsOfPrivacyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class ForgotPswdScreen extends StatelessWidget {
             "This page is in progress...",
             style: TextStyle(fontSize: 25),
           ),
-          Image.asset("assets/kiss_cat.webp"),
+          Image.asset("assets/dance_cat.webp"),
         ],
       ),
     );

@@ -29,22 +29,8 @@ class OnSaveKnewWords extends SaveWordsEvent {
   List<Object> get props => [listMap];
 }
 
-class OnRemoveLearWords extends SaveWordsEvent {
-  final Map<String, dynamic> word;
+class OnRemoveLearWords extends SaveWordsEvent {}
 
-  const OnRemoveLearWords(this.word);
-
-  @override
-  List<Object> get props => [word];
-}
-
-class OnRemoveKnewWords extends SaveWordsEvent {
-  final Map<String, dynamic> word;
-
-  const OnRemoveKnewWords({required this.word});
-
-  @override
-  List<Object> get props => [word];
-}
+class OnRemoveKnewWords extends SaveWordsEvent {}
 
 class OnRemoveTrainingLearWords extends SaveWordsEvent {}

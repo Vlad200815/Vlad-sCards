@@ -32,6 +32,7 @@ class LoginInput extends StatelessWidget {
       },
       keyboardType: keyboardType,
       obscureText: obscureText,
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide: BorderSide.none,

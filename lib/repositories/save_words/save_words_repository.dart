@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/repositories/save_words/save_words.dart';
+import 'package:workmanager/workmanager.dart';
 
 class SaveWordsRepository implements SaveWordsRepositoryInterface {
   final SharedPreferences preferences;
@@ -44,7 +44,6 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   Future<List<Map<String, dynamic>>> getLearnWords() async {
     try {
       String? jsonString = preferences.getString(_saveLearnWords);
-
       if (jsonString != null) {
         List<dynamic> jsonData = jsonDecode(jsonString);
         List<Map<String, dynamic>> data = jsonData.cast<Map<String, dynamic>>();
@@ -79,9 +78,8 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   }
 
   @override
-  Future<void> removeLearnWord(Map<String, dynamic> word) async {
+  Future<void> removeLearnWord() async {
     try {
-      //TODO: DO SOMETHING WITH THIS THING BELOW
       if (storageLearn.isNotEmpty) {
         storageLearn.removeAt(storageLearn.length - 1);
         // GetIt.I<Talker>().debug("remove from the learn storage $storageLearn");
@@ -105,10 +103,9 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   }
 
   @override
-  Future<void> removeKnewWord(Map<String, dynamic> word) async {
+  Future<void> removeKnewWord() async {
     try {
       GetIt.I<Talker>().debug("the knew storage----> $storageLearn");
-      //TODO: DO SOMETHING WITH THIS THING BELOW
       if (storageKnew.isNotEmpty) {
         storageKnew.removeAt(storageKnew.length - 1);
         GetIt.I<Talker>()
@@ -136,6 +133,9 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
   @override
   Future<void> removeLearn() async {
     try {
+      if (storageLearn.isNotEmpty) {
+        storageLearn.removeAt(storageLearn.length - 1);
+      }
       String? jsonString = preferences.getString(_saveLearnWords);
       GetIt.I<Talker>()
           .debug("remove from training the jsonString: $jsonString");
@@ -143,113 +143,54 @@ class SaveWordsRepository implements SaveWordsRepositoryInterface {
       if (jsonString != null) {
         List<dynamic> myList = jsonDecode(jsonString);
         if (myList.isNotEmpty) {
-          myList.removeAt(0);
+          var removedItem = myList.removeAt(0);
+
           GetIt.I<Talker>().debug("remove from training: $myList");
           String updatedJsonString = jsonEncode(myList);
-
           await preferences.setString(_saveLearnWords, updatedJsonString);
+
+          int delayDurationTime = 0;
+
+          if (removedItem['repetition'] == 0) {
+            delayDurationTime = 2; // 2 minuts
+          } else if (removedItem['repetition'] == 1) {
+            delayDurationTime = 2; //60 minuts
+          } else if (removedItem['repetition'] == 2) {
+            delayDurationTime = 60 * 24;
+          } else if (removedItem['repetition'] == 3) {
+            delayDurationTime = 60 * 24 * 7;
+          } else if (removedItem['repetition'] == 4) {
+            delayDurationTime = 2;
+          } else if (removedItem['repetition'] == 5) {
+            delayDurationTime = 20;
+          } else if (removedItem['repetition'] == 6) {
+            delayDurationTime = 60;
+          } else if (removedItem['repetition'] == 7) {
+            delayDurationTime = 60 * 24;
+          } else if (removedItem['repetition'] == 8) {
+            delayDurationTime = 60 * 24 * 7;
+          } else {
+            delayDurationTime = 60 * 24 * 7 * 2;
+          }
+
+          removedItem["repetition"] += 1;
+
+          await Workmanager().registerOneOffTask(
+              "uniqueTaskId_${removedItem['english']}", "reAddRemovedItem",
+              inputData: {
+                'removedItem': jsonEncode(removedItem),
+                'saveLearnWordsKey': _saveLearnWords,
+              },
+              initialDelay:
+                  Duration(seconds: delayDurationTime) //TODO: CORRECT TO MINUTS
+              );
+
+          GetIt.I<Talker>().debug(
+              "scheduled task to restore item after $delayDurationTime minutes.");
         }
       }
     } catch (e, st) {
       GetIt.I<Talker>().handle(e, st);
     }
   }
-
-  // @override
-  // Future<List<Map<String, dynamic>>> getDoNotKnowWords() async {
-  //   try {
-  //     String? jsonString = preferences.getString(_saveDoNotKnowWords);
-
-  //     if (jsonString != null) {
-  //       GetIt.I<Talker>().debug(jsonString);
-  //       List<dynamic> jsonList = jsonDecode(jsonString);
-  //       List<Map<String, dynamic>> wordsList =
-  //           jsonList.cast<Map<String, dynamic>>();
-  //       return jsonString as List<Map<String, dynamic>>;
-  //     } else {
-  //       return [];
-  //     }
-  //   } catch (e, st) {
-  //     GetIt.I<Talker>().handle(e, st);
-  //     rethrow;
-  //   }
-  // }
-
-  // @override
-  // Future<void> saveDoNotKnowWords(Map<String, dynamic> listMap) async {
-  //   try {
-  //     String jsonString = jsonEncode(listMap);
-  //     await preferences.setString(_saveDoNotKnowWords, jsonString);
-  //     GetIt.I<Talker>().debug(jsonString);
-  //   } catch (e, st) {
-  //     GetIt.I<Talker>().handle(e, st);
-  //   }
-  // }
-
-  // @override
-  // Future<void> saveKnewWords(Map<String, dynamic> listMap) async {
-  //   try {
-  //     String jsonString = jsonEncode(listMap);
-  //     await preferences.setString(_knew, jsonString);
-  //     GetIt.I<Talker>().debug(jsonString);
-  //   } catch (e, st) {
-  //     GetIt.I<Talker>().handle(e, st);
-  //   }
-  // }
-
-  // @override
-  // Future<List<Map<String, dynamic>>> getKnowWords() async {
-  //   List<Map<String, dynamic>> words = [];
-  //   try {
-  //     String? jsonString = preferences.getString(_saveKnowWords);
-
-  //     if (jsonString != null) {
-  //       GetIt.I<Talker>().debug(jsonString);
-  //       Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-  //       words.add(jsonMap);
-  //       GetIt.I<Talker>().debug(jsonString);
-  //       return words;
-  //     } else {
-  //       return [];
-  //     }
-  //   } catch (e, st) {
-  //     GetIt.I<Talker>().handle(e, st);
-  //     rethrow;
-  //   }
-  // }
-
-  // @override
-  // Future<List<Map<String, dynamic>>> getKnewWords() async {
-  //   String? jsonString = preferences.getString(_knew);
-  //   if (jsonString != null) {
-  //     List<Map<String, dynamic>> knewWords = jsonDecode(jsonString);
-  //     return knewWords;
-  //   } else {
-  //     return [];
-  //   }
-  // }
-
-  // @override
-  // Future<void> removeDoNotKnowWord(Map<String, dynamic> word) async {
-  //   String? words = preferences.getString(_saveDoNotKnowWords);
-  //   if (words != null) {
-  //     List<dynamic> list = jsonDecode(words);
-  //     if (list.isNotEmpty) {
-  //       list.removeAt(0);
-  //       await preferences.setString(_saveDoNotKnowWords, jsonEncode(list));
-  //     }
-  //   }
-  // }
-
-  // @override
-  // Future<void> removeKnowWord(Map<String, dynamic> word) async {
-  //   String? words = preferences.getString(_saveKnowWords);
-  //   if (words != null) {
-  //     List<dynamic> list = jsonDecode(words);
-  //     if (list.isNotEmpty) {
-  //       list.removeAt(0);
-  //       await preferences.setString(_saveKnowWords, jsonEncode(list));
-  //     }
-  //   }
-  //  }
 }

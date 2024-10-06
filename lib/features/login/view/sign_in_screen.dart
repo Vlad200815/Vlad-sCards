@@ -198,7 +198,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, '/terms_of_privacy');
+                },
                 child: RichText(
                   text: TextSpan(
                     children: [

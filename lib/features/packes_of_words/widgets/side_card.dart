@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:vlads_cards/general_functions/tts.dart';
 
 class SideCard extends StatelessWidget {
   const SideCard({
     required this.ukrainian,
     required this.example,
-    required this.imagePath,
     required this.english,
     required this.imageHeight,
     required this.imageWidth,
@@ -17,7 +17,6 @@ class SideCard extends StatelessWidget {
 
   final String ukrainian;
   final String example;
-  final String imagePath;
   final String english;
   final double width;
   final double height;
@@ -39,12 +38,14 @@ class SideCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: topSizedBox),
+          // SizedBox(height: topSizedBox),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () async {
+                  await speak(english);
+                },
                 child: Icon(
                   Icons.volume_up_outlined,
                   color: theme.colorScheme.primary,
@@ -61,6 +62,20 @@ class SideCard extends StatelessWidget {
               ),
             ],
           ),
+          Container(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                ukrainian,
+                style: theme.textTheme.bodySmall!.copyWith(
+                  color: const Color.fromARGB(255, 94, 94, 94),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
@@ -69,31 +84,6 @@ class SideCard extends StatelessWidget {
               style: theme.textTheme.bodySmall!.copyWith(
                 color: const Color.fromARGB(255, 94, 94, 94),
                 fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Container(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: imageWidth,
-                    height: imageHeight,
-                    child: Image.asset(
-                      imagePath,
-                    ),
-                  ),
-                  Text(
-                    ukrainian,
-                    style: theme.textTheme.bodySmall!.copyWith(
-                      color: const Color.fromARGB(255, 94, 94, 94),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
               ),
             ),
           ),
