@@ -105,13 +105,8 @@ flutter:
     - assets/200.webp
     - assets/man.webp
     - assets/cat.webp
-    - assets/icons/airplane.png
-    - assets/icons/bag.png
-    - assets/icons/burger.png
-    - assets/icons/bag.png
-    - assets/icons/home.png
-    - assets/icons/pawprint.png
-    - assets/icons/ticket.png
+    - assets/user.png
+    - assets/flame.webp
 
 
   #   - images/a_dot_ham.jpeg

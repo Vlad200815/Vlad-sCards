@@ -14,6 +14,7 @@ import 'package:vlads_cards/features/login/blocs/google_auth_bloc/google_auth_bl
 import 'package:vlads_cards/general_blocs/english_words_api_bloc/english_words_api_bloc.dart';
 import 'package:vlads_cards/general_blocs/image_search_api/image_search_api_bloc.dart';
 import 'package:vlads_cards/general_blocs/save_words_bloc/save_words_bloc.dart';
+import 'package:vlads_cards/general_blocs/what_login_cubit/what_login_cubit.dart';
 import 'package:vlads_cards/repositories/save_words/save_words.dart';
 import 'package:vlads_cards/repositories/settings/settings_repository.dart';
 import 'package:workmanager/workmanager.dart';
@@ -105,6 +106,9 @@ void main() async {
             ),
             BlocProvider(
               create: (context) => ImageSearchApiBloc(),
+            ),
+            BlocProvider(
+              create: (context) => WhatLoginCubit(),
             ),
           ],
           child: const MyApp(),

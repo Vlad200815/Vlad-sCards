@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../repositories/login/models/my_user.dart';
 
 class DatabaseService {
@@ -10,10 +9,10 @@ class DatabaseService {
   factory DatabaseService() => _instance;
 
   //tables
-  static String _usersTableName = "users";
-  static String _userIdColumnName = 'id';
-  static String _userEmailColumnName = 'email';
-  static String _userPasswordColumnName = 'password';
+  static const String _usersTableName = "users";
+  static const String _userIdColumnName = 'id';
+  static const String _userEmailColumnName = 'email';
+  static const String _userPasswordColumnName = 'password';
 
   DatabaseService._internal();
 

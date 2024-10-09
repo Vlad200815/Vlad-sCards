@@ -9,6 +9,7 @@ class LoginRepository implements LoginRepositoryInterface {
   @override
   Future<User?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
     if (googleUser != null) {
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
@@ -21,5 +22,10 @@ class LoginRepository implements LoginRepositoryInterface {
       return userCredential.user;
     }
     return null;
+  }
+
+  @override
+  Future<void> googleSignOut() async {
+    await _googleSignIn.signOut();
   }
 }

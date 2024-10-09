@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:vlads_cards/database/database_service.dart';
 import 'package:vlads_cards/repositories/login/email_login/email_login_repository.dart';
+import 'package:vlads_cards/repositories/login/google_login/google_login.dart';
 import 'package:vlads_cards/repositories/login/models/my_user.dart';
 
 part 'email_auth_event.dart';
@@ -16,7 +17,14 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
 
   EmailAuthBloc() : super(EmailAuthInitial()) {
     on<SignOut>((event, emit) async {
-      await _emailLoginRepository.signOut();
+      emit(EmailSignOutProgressState());
+      try {
+        await _emailLoginRepository.signOut();
+        emit(EmailSignOutSuccessState());
+      } catch (e, st) {
+        emit(EmailSignOutFailureState());
+        GetIt.I<Talker>().handle(e, st);
+      }
     });
 
     on<SignInWithEmailEvent>((event, emit) async {
@@ -24,8 +32,9 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
       try {
         await _emailLoginRepository.signInWithEmail(
             event.email, event.password);
-
-        emit(EmailSignInSuccessState());
+        MyEmailUser myEmailUser =
+            MyEmailUser(email: event.email, password: event.password);
+        emit(EmailSignInSuccessState(myEmailUser: myEmailUser));
       } catch (e, st) {
         emit(EmailSignInFailureState());
         GetIt.I<Talker>().handle(e, st);
@@ -37,7 +46,7 @@ class EmailAuthBloc extends Bloc<EmailAuthEvent, EmailAuthState> {
       try {
         await _emailLoginRepository.signUpWithEmail(event.myUser);
         await _database.addUser(event.myUser);
-        emit(EmailSignUpSuccessState());
+        emit(EmailSignUpSuccessState(myUser: event.myUser));
       } catch (e) {
         emit(EmailSignUpFailureState());
         debugPrint(e.toString());

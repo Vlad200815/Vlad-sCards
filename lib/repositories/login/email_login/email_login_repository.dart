@@ -9,7 +9,7 @@ class EmailLoginRepository implements EmailLoginRepositoryInterface {
   @override
   Future<void> signOut() async {
     await _auth.signOut();
-    print("Sign out seccessfully");
+    debugPrint("Sign out seccessfully");
   }
 
   @override

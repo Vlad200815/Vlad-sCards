@@ -17,6 +17,7 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
       emit(GoogleAuthProgress());
       try {
         User? firebaseUser = await _googleAuth.signInWithGoogle();
+
         if (firebaseUser != null) {
           MyUser myUser = MyUser(
             id: firebaseUser.uid,
@@ -27,6 +28,17 @@ class GoogleAuthBloc extends Bloc<GoogleAuthEvent, GoogleAuthState> {
         }
       } catch (e, st) {
         emit(GoogleAuthFailure(message: e.toString()));
+        GetIt.I<Talker>().handle(e, st);
+      }
+    });
+
+    on<SignOutWithGoogle>((event, emit) async {
+      emit(GoogleAutSignOuthProgress());
+      try {
+        await _googleAuth.googleSignOut();
+        emit(GoogleAutSignOuthSuccess());
+      } catch (e, st) {
+        emit(GoogleAutSignOuthFailure());
         GetIt.I<Talker>().handle(e, st);
       }
     });

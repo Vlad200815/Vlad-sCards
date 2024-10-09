@@ -10,7 +10,6 @@ class SideCard extends StatelessWidget {
     required this.imageWidth,
     required this.width,
     required this.height,
-    required this.topSizedBox,
     required this.volumnButtonSize,
     super.key,
   });
@@ -20,7 +19,6 @@ class SideCard extends StatelessWidget {
   final String english;
   final double width;
   final double height;
-  final double topSizedBox;
   final double volumnButtonSize;
   final double imageWidth;
   final double imageHeight;

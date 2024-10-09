@@ -15,21 +15,3 @@ class OnSearchImageEvent extends ImageSearchApiEvent {
   @override
   List<Object> get props => [query];
 }
-
-class OnSearchImageLearnEvent extends ImageSearchApiEvent {
-  final String learnQurey;
-
-  const OnSearchImageLearnEvent({required this.learnQurey});
-
-  @override
-  List<Object> get props => [learnQurey];
-}
-
-class OnSearchImageKnewEvent extends ImageSearchApiEvent {
-  final String knewQurey;
-
-  const OnSearchImageKnewEvent({required this.knewQurey});
-
-  @override
-  List<Object> get props => [knewQurey];
-}

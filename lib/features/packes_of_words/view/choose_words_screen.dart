@@ -263,8 +263,6 @@ class _ChooseWordsScreenState extends State<ChooseWordsScreen> {
                                     .add(OnSaveLearnWords(listMap: card.data));
                                 words.remove(card.data);
                               });
-                              GetIt.I<Talker>()
-                                  .warning("learnWords: $learnWords");
                             },
                           ),
                         ),

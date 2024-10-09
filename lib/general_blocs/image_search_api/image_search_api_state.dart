@@ -21,29 +21,3 @@ final class ImageSearchApiSuccess extends ImageSearchApiState {
   @override
   List<Object> get props => [url];
 }
-
-final class ImageSearchLearnApiProgress extends ImageSearchApiState {}
-
-final class ImageSearchLearnApiFailure extends ImageSearchApiState {}
-
-final class ImageSearchLearnApiSuccess extends ImageSearchApiState {
-  final String url;
-
-  const ImageSearchLearnApiSuccess({required this.url});
-
-  @override
-  List<Object> get props => [url];
-}
-
-final class ImageSearchKnewApiProgress extends ImageSearchApiState {}
-
-final class ImageSearchKnewApiFailure extends ImageSearchApiState {}
-
-final class ImageSearchKnewApiSuccess extends ImageSearchApiState {
-  final String url;
-
-  const ImageSearchKnewApiSuccess({required this.url});
-
-  @override
-  List<Object> get props => [url];
-}

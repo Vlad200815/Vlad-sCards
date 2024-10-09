@@ -28,3 +28,9 @@ final class GoogleAuthFailure extends GoogleAuthState {
   @override
   List<Object> get props => [message];
 }
+
+final class GoogleAutSignOuthProgress extends GoogleAuthState {}
+
+final class GoogleAutSignOuthFailure extends GoogleAuthState {}
+
+final class GoogleAutSignOuthSuccess extends GoogleAuthState {}

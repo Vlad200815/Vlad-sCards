@@ -422,8 +422,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                   .add(OnSearchImageEvent(query: query[added]));
                             } else if (currentIndex == null) {
                               added = 0;
-                              // context.read<ImageSearchApiBloc>().add(
-                              //     OnSearchImageEvent(query: readded[added]));
                             }
                           });
                         }
@@ -432,15 +430,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       onSwipeDirectionChange:
                           (horizontalDirection, verticalDivider) {
                         if (horizontalDirection == CardSwiperDirection.right) {
-                          GetIt.I<Talker>().warning("Right");
                           setState(() {
                             isRight = true;
                             isLeft = false;
                           });
                         } else if (horizontalDirection ==
                             CardSwiperDirection.left) {
-                          GetIt.I<Talker>().warning("Left");
-
                           setState(() {
                             isLeft = true;
                             isRight = false;
